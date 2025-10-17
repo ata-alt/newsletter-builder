@@ -1,0 +1,1013 @@
+/* ===== PDF DOCUMENT NEWSLETTER STYLES ===== */
+
+/* Newsletter Page Body */
+.newsletter-page {
+    background-color: #ffffff;
+    font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+/* PDF Document Container */
+.pdf-document {
+    max-width: 100%;
+    margin: 0;
+    background-color: #ffffff;
+    box-shadow: none;
+}
+
+/* PDF Header - Minimal and elegant */
+.pdf-header {
+    background-color: #ffffff;
+    border-bottom: 2px solid #000000;
+    padding: 30px 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+}
+
+.pdf-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pdf-brand {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #000000;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.pdf-brand-logo {
+    height: 50px;
+    width: auto;
+    display: block;
+}
+
+.pdf-header-actions {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.pdf-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.pdf-action-btn:hover {
+    background-color: #333333;
+}
+
+.pdf-action-link {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #000000;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.2s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    border-bottom: 1px solid transparent;
+}
+
+.pdf-action-link:hover {
+    color: #666666;
+    border-bottom-color: #666666;
+}
+
+/* PDF Content */
+.pdf-content {
+    padding: 0;
+}
+
+/* Cover Section */
+.pdf-cover {
+    padding: 100px 60px 80px;
+    border-bottom: 1px solid #e0e0e0;
+    background: linear-gradient(to bottom, #fafafa 0%, #ffffff 100%);
+}
+
+.pdf-cover-text {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.pdf-date {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #666666;
+    margin-bottom: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.pdf-title {
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+    color: #000000;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+}
+
+.pdf-subtitle {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #666666;
+    margin-bottom: 40px;
+    font-style: italic;
+}
+
+.pdf-divider {
+    width: 80px;
+    height: 2px;
+    background-color: #000000;
+    margin: 40px auto;
+}
+
+.pdf-intro {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #333333;
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* PDF Sections */
+.pdf-section {
+    padding: 80px 60px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.pdf-section.alternate {
+    background-color: #fafafa;
+}
+
+.section-header {
+    margin-bottom: 40px;
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.section-number {
+    font-size: 3rem;
+    font-weight: 200;
+    color: #cccccc;
+    line-height: 1;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.section-title {
+    font-size: 2.25rem;
+    font-weight: 400;
+    color: #000000;
+    flex: 1;
+    min-width: 300px;
+    letter-spacing: -0.01em;
+}
+
+.section-category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999999;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Section Images */
+.section-image-large {
+    width: 100%;
+    height: 500px;
+    margin-bottom: 40px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.section-image-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.section-image-half {
+    flex: 1;
+    min-width: 300px;
+    height: 450px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.section-image-half img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Section Content */
+.section-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.section-text {
+    font-size: 1.125rem;
+    line-height: 1.9;
+    color: #333333;
+    margin-bottom: 24px;
+}
+
+.section-text-large {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: #000000;
+    margin-bottom: 24px;
+    font-weight: 400;
+}
+
+/* Section Split Layout */
+.section-split {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.section-split.reverse {
+    flex-direction: row-reverse;
+}
+
+.section-content-half {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Section Features List */
+.section-features {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0;
+}
+
+.section-features li {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #333333;
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.section-features li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #000000;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Section Quote */
+.section-quote {
+    padding: 32px 0;
+    margin: 32px 0;
+    border-left: 3px solid #000000;
+    padding-left: 32px;
+}
+
+.section-quote p {
+    font-size: 1.25rem;
+    font-style: italic;
+    color: #000000;
+    line-height: 1.6;
+}
+
+/* Section Grid Small */
+.section-grid-small {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.grid-item {
+    padding: 16px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #333333;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Insights Section */
+.pdf-insights {
+    padding: 80px 60px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.insights-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.insights-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #000000;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+.insights-subtitle {
+    font-size: 1.125rem;
+    color: #666666;
+    font-style: italic;
+}
+
+.insights-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.insight-item {
+    text-align: center;
+}
+
+.insight-icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #000000;
+    color: #000000;
+}
+
+.insight-title-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.insight-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666666;
+}
+
+/* Closing Section */
+.pdf-closing {
+    padding: 80px 60px;
+    background-color: #fafafa;
+    border-bottom: 2px solid #000000;
+}
+
+.closing-content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.closing-title {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #000000;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+}
+
+.closing-text {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #333333;
+    margin-bottom: 48px;
+}
+
+.closing-contact {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    text-align: center;
+}
+
+.contact-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #999999;
+    margin-bottom: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.contact-value {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: #000000;
+}
+
+.appointment-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    transition: all 0.3s ease;
+    border: 2px solid #000000;
+}
+
+.appointment-btn:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* PDF Footer */
+.pdf-footer {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 40px 60px;
+}
+
+.pdf-footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.footer-left {
+    flex: 1;
+}
+
+.footer-brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.footer-brand-logo {
+    height: 40px;
+    width: auto;
+    display: block;
+    margin-bottom: 8px;
+    filter: brightness(0) invert(1);
+}
+
+.footer-tagline {
+    font-size: 0.875rem;
+    color: #cccccc;
+    font-style: italic;
+}
+
+.footer-center {
+    flex: 1;
+    text-align: center;
+}
+
+.footer-copyright {
+    font-size: 0.875rem;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.footer-right {
+    flex: 1;
+    display: flex;
+    gap: 24px;
+    justify-content: flex-end;
+}
+
+.footer-link-small {
+    font-size: 0.875rem;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.footer-link-small:hover {
+    color: #cccccc;
+}
+
+/* Email Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 48px;
+    border: 1px solid #e0e0e0;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    animation: slideUp 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #666666;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+    color: #000000;
+}
+
+.modal-title {
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.modal-description {
+    font-size: 1rem;
+    font-weight: 300;
+    color: #666666;
+    margin-bottom: 32px;
+}
+
+.email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-label {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #000000;
+    letter-spacing: 0.02em;
+}
+
+.required-indicator {
+    color: #ff0000;
+    margin-left: 2px;
+}
+
+.email-input {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    padding: 16px 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background-color: #ffffff;
+    color: #000000;
+    transition: border-color 0.2s ease;
+}
+
+.email-input:focus {
+    outline: none;
+    border-color: #000000;
+}
+
+.checkbox-field {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    flex-shrink: 0;
+}
+
+.checkbox-text {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #000000;
+    letter-spacing: 0.02em;
+}
+
+.checkbox-text a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.checkbox-text a:hover {
+    color: #333333;
+}
+
+.email-submit {
+    padding: 16px 40px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #ffffff;
+    background-color: #000000;
+    border: 1px solid #000000;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.email-submit:hover {
+    background-color: #333333;
+    border-color: #333333;
+}
+
+.email-status {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 0.875rem;
+    min-height: 20px;
+}
+
+.email-status.success {
+    color: #008000;
+}
+
+.email-status.error {
+    color: #ff0000;
+}
+
+/* Responsive - PDF Document */
+@media (max-width: 1024px) {
+    .pdf-header,
+    .pdf-section,
+    .pdf-cover,
+    .pdf-insights,
+    .pdf-closing,
+    .pdf-footer {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .section-number {
+        font-size: 2.5rem;
+    }
+
+    .section-title {
+        font-size: 1.875rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .pdf-header {
+        padding: 20px;
+    }
+
+    .pdf-header-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .pdf-brand-logo {
+        height: 40px;
+    }
+
+    .footer-brand-logo {
+        height: 35px;
+    }
+
+    .pdf-header-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .pdf-action-btn,
+    .pdf-action-link {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .pdf-section,
+    .pdf-cover,
+    .pdf-insights,
+    .pdf-closing,
+    .pdf-footer {
+        padding: 40px 20px;
+    }
+
+    .pdf-title {
+        font-size: 2.5rem;
+    }
+
+    .pdf-subtitle {
+        font-size: 1.125rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .section-number {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .section-image-large {
+        height: 350px;
+    }
+
+    .section-image-half {
+        height: 300px;
+        width: 100%;
+    }
+
+    .section-split {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .section-split.reverse {
+        flex-direction: column;
+    }
+
+    .insights-title {
+        font-size: 2rem;
+    }
+
+    .insights-cards {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .closing-contact {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .pdf-footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+    }
+
+    .footer-right {
+        justify-content: center;
+    }
+
+    .modal-content {
+        padding: 32px 24px;
+        width: 95%;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .pdf-document {
+        box-shadow: none;
+        margin: 0;
+    }
+
+    .pdf-header {
+        position: static;
+    }
+
+    .pdf-action-btn,
+    .pdf-action-link {
+        display: none;
+    }
+
+    .pdf-section {
+        page-break-inside: avoid;
+    }
+}
+
+/* PDF Generation Specific Styles */
+.pdf-generating .pdf-header {
+    display: none !important;
+}
+
+.pdf-generating .pdf-section {
+    page-break-inside: avoid;
+    page-break-after: auto;
+    page-break-before: auto;
+    padding: 40px 30px;
+}
+
+.pdf-generating .section-image-large,
+.pdf-generating .section-image-half {
+    page-break-inside: avoid;
+    max-height: 400px;
+}
+
+.pdf-generating .section-content {
+    page-break-inside: avoid;
+}
+
+/* Image Lightbox */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    animation: fadeIn 0.3s ease;
+    cursor: zoom-out;
+}
+
+.lightbox.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.lightbox-close {
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    font-size: 3rem;
+    font-weight: 300;
+    color: #ffffff;
+    cursor: pointer;
+    line-height: 1;
+    transition: all 0.3s ease;
+    z-index: 2001;
+    padding: 10px;
+    user-select: none;
+}
+
+.lightbox-close:hover {
+    color: #cccccc;
+    transform: rotate(90deg);
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 85vh;
+    object-fit: contain;
+    animation: zoomIn 0.3s ease;
+    cursor: default;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.lightbox-caption {
+    color: #ffffff;
+    font-size: 1.125rem;
+    font-weight: 300;
+    text-align: center;
+    padding: 20px;
+    max-width: 90%;
+    margin-top: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Add cursor pointer to images to indicate they're clickable */
+.section-image-large img,
+.section-image-half img {
+    cursor: zoom-in;
+    transition: opacity 0.3s ease;
+}
+
+.section-image-large img:hover,
+.section-image-half img:hover {
+    opacity: 0.9;
+}
+
+/* Mobile lightbox adjustments */
+@media (max-width: 768px) {
+    .lightbox-close {
+        right: 20px;
+        top: 20px;
+        font-size: 2.5rem;
+    }
+
+    .lightbox-content {
+        max-width: 95%;
+        max-height: 80vh;
+    }
+
+    .lightbox-caption {
+        font-size: 1rem;
+        padding: 15px;
+    }
+}
