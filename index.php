@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FCI London - Personalized Selection</title>
-    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="styles.css?v=5">
 </head>
 
 <body>
@@ -53,7 +53,7 @@
 
     </div>
 
-    <script src="script.js?v=10"></script>
+    <script src="script.js?v=13"></script>
 </body>
 
 </html>

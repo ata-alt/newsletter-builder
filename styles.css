@@ -100,8 +100,18 @@ body {
     white-space: nowrap;
     border-right: 2px solid #000000;
     width: 0;
-    animation: typing 7s steps(91, end) infinite, blink-caret 0.75s step-end infinite;
+    animation: typing 10s steps(91, end) infinite, blink-caret 0.75s step-end infinite;
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
+
+.prompt-text.stopped {
+    animation: none;
+    width: 100%;
+    border-right: none;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
 
 @keyframes typing {
     0%, 100% {

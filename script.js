@@ -1,3 +1,7 @@
+// ===== CONFIGURATION =====
+const WISPRFLOW_API_KEY = 'fl-9953569e43701a6ced5720e5cd0b60ee'; // Replace with your actual API key
+const WISPRFLOW_API_URL = 'https://platform-api.wisprflow.ai/api/v1/dash/api';
+
 // Generate unique session ID
 function generateSessionId() {
   return (
@@ -8,77 +12,292 @@ function generateSessionId() {
 // State management
 const state = {
   sessionId: generateSessionId(),
-  stage: 'gathering', // 'gathering' or 'recommend'
+  stage: 'gathering',
   messages: [],
   isRecording: false,
-  recognition: null,
+  mediaRecorder: null,
+  audioChunks: [],
 };
 
-// DOM elements
 const userInput = document.getElementById('userInput');
 const micButton = document.getElementById('micButton');
 const submitButton = document.getElementById('submitButton');
 const statusMessage = document.getElementById('statusMessage');
 const conversationHistory = document.getElementById('conversationHistory');
 const inputWrapper = document.querySelector('.input-wrapper');
+const promptText = document.querySelector('.prompt-text');
 
-// Initialize speech recognition
-function initSpeechRecognition() {
-  if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-    state.recognition = new SpeechRecognition();
+// ===== WISPRFLOW AI AUDIO FUNCTIONS =====
 
-    state.recognition.continuous = false;
-    state.recognition.interimResults = false;
-    state.recognition.lang = 'en-US';
+// Convert Blob to Base64
+const blobToBase64 = (blob) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (typeof reader.result === 'string') {
+        resolve(reader.result.split(',')[1]);
+      } else {
+        reject(new Error('Failed to convert blob to base64'));
+      }
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+};
 
-    state.recognition.onstart = () => {
+// Convert WebM to 16kHz WAV (required by Wisprflow)
+const convertWebMToWAV = async (webmBlob) => {
+  const audioContext = new AudioContext();
+  const arrayBuffer = await webmBlob.arrayBuffer();
+  const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+  // Calculate the correct number of samples at 16 kHz
+  const targetSampleRate = 16000;
+  const resampleRatio = targetSampleRate / audioBuffer.sampleRate;
+  const newLength = Math.floor(audioBuffer.length * resampleRatio);
+
+  // Create an OfflineAudioContext with the correct length
+  const offlineAudioContext = new OfflineAudioContext(
+    1, // mono channel
+    newLength,
+    targetSampleRate
+  );
+
+  const source = offlineAudioContext.createBufferSource();
+  source.buffer = audioBuffer;
+  source.connect(offlineAudioContext.destination);
+  source.start(0);
+
+  const renderedBuffer = await offlineAudioContext.startRendering();
+
+  // Prepare WAV file headers and data
+  const numberOfChannels = 1;
+  const length = renderedBuffer.length * numberOfChannels * 2 + 44;
+  const buffer = new ArrayBuffer(length);
+  const view = new DataView(buffer);
+
+  const writeString = (view, offset, string) => {
+    for (let i = 0; i < string.length; i++) {
+      view.setUint8(offset + i, string.charCodeAt(i));
+    }
+  };
+
+  let offset = 0;
+
+  // RIFF chunk descriptor
+  writeString(view, offset, 'RIFF');
+  offset += 4;
+  view.setUint32(
+    offset,
+    36 + renderedBuffer.length * numberOfChannels * 2,
+    true
+  );
+  offset += 4;
+  writeString(view, offset, 'WAVE');
+  offset += 4;
+
+  // fmt sub-chunk
+  writeString(view, offset, 'fmt ');
+  offset += 4;
+  view.setUint32(offset, 16, true);
+  offset += 4;
+  view.setUint16(offset, 1, true);
+  offset += 2;
+  view.setUint16(offset, numberOfChannels, true);
+  offset += 2;
+  view.setUint32(offset, targetSampleRate, true);
+  offset += 4;
+  view.setUint32(offset, targetSampleRate * numberOfChannels * 2, true);
+  offset += 4;
+  view.setUint16(offset, numberOfChannels * 2, true);
+  offset += 2;
+  view.setUint16(offset, 16, true);
+  offset += 2;
+
+  // data sub-chunk
+  writeString(view, offset, 'data');
+  offset += 4;
+  view.setUint32(offset, renderedBuffer.length * numberOfChannels * 2, true);
+  offset += 4;
+
+  // Write PCM samples
+  const channelData = renderedBuffer.getChannelData(0);
+  for (let i = 0; i < renderedBuffer.length; i++) {
+    const sample = channelData[i];
+    const intSample = sample < 0 ? sample * 0x8000 : sample * 0x7fff;
+    view.setInt16(offset, intSample, true);
+    offset += 2;
+  }
+
+  return new Blob([view], { type: 'audio/wav' });
+};
+
+// Send audio to Wisprflow AI for transcription
+async function transcribeWithWisprflow(audioBlob) {
+  try {
+    showStatus('Processing speech...', 'success');
+
+    const base64Audio = await blobToBase64(audioBlob);
+    const requestBody = {
+      audio: base64Audio,
+      language: ['en'],
+      context: {
+        app: {
+          type: 'other',
+        },
+        dictionary_context: [],
+        textbox_contents: {
+          before_text: '',
+          selected_text: '',
+          after_text: '',
+        },
+      },
+    };
+    const response = await fetch(WISPRFLOW_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${WISPRFLOW_API_KEY}`,
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    // Get the response text for better error debugging
+    const responseText = await response.text();
+    console.log('Response status:', response.status);
+    console.log('Response text:', responseText);
+
+    if (!response.ok) {
+      let errorMessage = `Wisprflow API error: ${response.status}`;
+      try {
+        const errorData = JSON.parse(responseText);
+        errorMessage += ` - ${JSON.stringify(errorData)}`;
+      } catch (e) {
+        errorMessage += ` - ${responseText}`;
+      }
+      throw new Error(errorMessage);
+    }
+
+    const result = JSON.parse(responseText);
+
+    // Extract transcribed text from response (try multiple field names)
+    const transcript = result.text || result.transcript || result.output || '';
+
+    if (transcript) {
+      userInput.value = transcript;
+      autoResizeTextarea();
+      enableSubmitButton();
+      showStatus('Speech recognized', 'success');
+    } else {
+      console.warn('No transcript found in response. Full response:', result);
+      showStatus('No speech detected', 'error');
+    }
+
+    return transcript;
+  } catch (error) {
+    console.error('Wisprflow transcription error:', error);
+    showStatus(`Transcription error: ${error.message}`, 'error');
+    return null;
+  }
+}
+
+// Initialize Wisprflow recording
+async function initWisprflowRecording() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    state.mediaRecorder = new MediaRecorder(stream);
+
+    state.mediaRecorder.ondataavailable = (event) => {
+      state.audioChunks.push(event.data);
+    };
+
+    state.mediaRecorder.onstop = async () => {
+      const webmBlob = new Blob(state.audioChunks, { type: 'audio/webm' });
+
+      // Check if audio is too short
+      if (webmBlob.size < 1000) {
+        showStatus(
+          'Recording too short. Please speak for at least 1 second.',
+          'error'
+        );
+        state.audioChunks = [];
+        state.isRecording = false;
+        micButton.classList.remove('recording');
+        return;
+      }
+
+      console.log('WebM blob size:', webmBlob.size);
+
+      try {
+        // Convert to 16kHz WAV
+        const wavBlob = await convertWebMToWAV(webmBlob);
+        console.log('WAV blob size:', wavBlob.size);
+
+        // Send to Wisprflow for transcription
+        await transcribeWithWisprflow(wavBlob);
+      } catch (error) {
+        console.error('Error processing audio:', error);
+        showStatus(`Error: ${error.message}`, 'error');
+      }
+
+      // Reset chunks
+      state.audioChunks = [];
+      state.isRecording = false;
+      micButton.classList.remove('recording');
+    };
+
+    state.mediaRecorder.onstart = () => {
       state.isRecording = true;
       micButton.classList.add('recording');
       showStatus('Listening...', 'success');
     };
 
-    state.recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      userInput.value = transcript;
-      autoResizeTextarea();
-      enableSubmitButton();
-      showStatus('Speech recognized', 'success');
-    };
-
-    state.recognition.onerror = (event) => {
-      console.error('Speech recognition error:', event.error);
-      showStatus(`Error: ${event.error}`, 'error');
+    state.mediaRecorder.onerror = (event) => {
+      console.error('MediaRecorder error:', event.error);
+      showStatus(`Recording error: ${event.error}`, 'error');
       state.isRecording = false;
       micButton.classList.remove('recording');
     };
 
-    state.recognition.onend = () => {
-      state.isRecording = false;
-      micButton.classList.remove('recording');
-      if (!userInput.value) {
-        showStatus('', '');
-      }
-    };
-  } else {
-    console.warn('Speech recognition not supported');
+    return true;
+  } catch (error) {
+    console.error('Microphone access error:', error);
+    showStatus('Could not access microphone', 'error');
     micButton.style.display = 'none';
+    return false;
   }
 }
 
-// Auto-resize textarea
+// Start/Stop recording
+async function toggleRecording() {
+  if (!state.mediaRecorder) {
+    const initialized = await initWisprflowRecording();
+    if (!initialized) return;
+  }
+
+  if (state.isRecording) {
+    // Stop recording
+    state.mediaRecorder.stop();
+    showStatus('Processing...', 'success');
+  } else {
+    // Start recording
+    state.audioChunks = [];
+    state.mediaRecorder.start();
+  }
+}
+
+// ===== UI FUNCTIONS =====
+
 function autoResizeTextarea() {
   userInput.style.height = 'auto';
   userInput.style.height = Math.min(userInput.scrollHeight, 200) + 'px';
 }
 
-// Enable/disable submit button based on input
 function enableSubmitButton() {
   submitButton.disabled = !userInput.value.trim();
 }
 
-// Show status message
 function showStatus(message, type = '') {
   statusMessage.textContent = message;
   statusMessage.className = `status-message ${type}`;
@@ -93,8 +312,7 @@ function showStatus(message, type = '') {
   }
 }
 
-// Add message to conversation history
-function addMessage(content, sender) {
+function addMessage(content, sender, allowHTML = false) {
   const messageDiv = document.createElement('div');
   messageDiv.className = `message ${sender}`;
 
@@ -104,7 +322,13 @@ function addMessage(content, sender) {
 
   const contentDiv = document.createElement('div');
   contentDiv.className = 'message-content';
-  contentDiv.textContent = content;
+
+  // Check if content contains HTML tags, if so use innerHTML
+  if (allowHTML || /<[a-z][\s\S]*>/i.test(content)) {
+    contentDiv.innerHTML = content;
+  } else {
+    contentDiv.textContent = content;
+  }
 
   messageDiv.appendChild(labelDiv);
   messageDiv.appendChild(contentDiv);
@@ -113,19 +337,16 @@ function addMessage(content, sender) {
   conversationHistory.classList.add('active');
   inputWrapper.classList.add('has-conversation');
 
-  // Hide header when conversation starts
   const pageHeader = document.querySelector('.page-header');
   if (pageHeader) {
     pageHeader.classList.add('hidden');
   }
 
-  // Auto scroll to bottom
   setTimeout(() => {
     conversationHistory.scrollTop = conversationHistory.scrollHeight;
   }, 100);
 }
 
-// Add loading indicator
 function showLoading(message = null) {
   const loadingDiv = document.createElement('div');
   loadingDiv.className = 'message ai loading-message';
@@ -148,13 +369,11 @@ function showLoading(message = null) {
   loadingDiv.appendChild(contentDiv);
   conversationHistory.appendChild(loadingDiv);
 
-  // Auto scroll to bottom
   setTimeout(() => {
     conversationHistory.scrollTop = conversationHistory.scrollHeight;
   }, 100);
 }
 
-// Remove loading indicator
 function hideLoading() {
   const loadingMessage = document.getElementById('loadingMessage');
   if (loadingMessage) {
@@ -162,14 +381,14 @@ function hideLoading() {
   }
 }
 
-// Handle AI response via webhook
+// ===== API FUNCTIONS =====
+
 async function getAIResponse(userMessage) {
   const webhookUrl = 'https://n8n.srv983823.hstgr.cloud/webhook/newsletter';
 
   try {
-    // Create an AbortController with extended timeout (5 minutes)
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 300000); // 5 minutes
+    const timeoutId = setTimeout(() => controller.abort(), 300000);
 
     const response = await fetch(webhookUrl, {
       method: 'POST',
@@ -192,11 +411,8 @@ async function getAIResponse(userMessage) {
     }
 
     const data = await response.json();
-
-    // Handle n8n response structure: [{ output: "message" }]
     console.log('Webhook response:', data);
 
-    // Return the complete response data
     return data;
   } catch (error) {
     if (error.name === 'AbortError') {
@@ -210,18 +426,43 @@ async function getAIResponse(userMessage) {
   }
 }
 
-// Call generate-newsletter webhook
+async function callShowroomWebhook(userPreferences) {
+  const showroomWebhookUrl =
+    'https://n8n.srv983823.hstgr.cloud/webhook/fci-showroom';
+
+  try {
+    const response = await fetch(showroomWebhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        sessionId: state.sessionId,
+        preferences: userPreferences,
+        conversationHistory: state.messages,
+        timestamp: new Date().toISOString(),
+      }),
+    });
+
+    if (!response.ok) {
+      console.error(`Showroom webhook error! status: ${response.status}`);
+      return null;
+    } else {
+      const data = await response.json();
+      console.log('Showroom webhook response:', data);
+      return data;
+    }
+  } catch (error) {
+    console.error('Showroom webhook error:', error);
+    return null;
+  }
+}
+
 async function callGenerateNewsletterWebhook(previousResponseData) {
   const generateWebhookUrl =
     'https://n8n.srv983823.hstgr.cloud/webhook/generate-newsletter';
 
   try {
-    console.log(
-      'Calling generate-newsletter webhook with data:',
-      previousResponseData
-    );
-
-    // Extract the summary from the response
     let summary = '';
     if (
       Array.isArray(previousResponseData) &&
@@ -234,10 +475,8 @@ async function callGenerateNewsletterWebhook(previousResponseData) {
       summary = dataObj.summary || '';
     }
 
-    console.log('Extracted summary:', summary);
-
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 300000); // 5 minutes
+    const timeoutId = setTimeout(() => controller.abort(), 300000);
 
     const response = await fetch(generateWebhookUrl, {
       method: 'POST',
@@ -261,7 +500,6 @@ async function callGenerateNewsletterWebhook(previousResponseData) {
     const data = await response.json();
     console.log('Generate-newsletter webhook response:', data);
 
-    // Extract response object (handle both array and direct object responses)
     let responseObj;
     if (Array.isArray(data) && data.length > 0) {
       responseObj = data[0].output || data[0];
@@ -269,15 +507,12 @@ async function callGenerateNewsletterWebhook(previousResponseData) {
       responseObj = data.output || data;
     }
 
-    // Check if the response stage is 'gathering' (back to gathering more info)
     if (responseObj.stage === 'gathering') {
       console.log('Stage returned to gathering - showing reply to customer');
       hideLoading();
 
-      // Update state to gathering
       state.stage = 'gathering';
 
-      // Display the reply message to the customer
       const replyMessage =
         responseObj.reply ||
         responseObj.message ||
@@ -286,11 +521,9 @@ async function callGenerateNewsletterWebhook(previousResponseData) {
       state.messages.push({ role: 'ai', content: replyMessage });
       addMessage(replyMessage, 'ai');
 
-      // Return with gathering flag so handleSubmit knows not to generate newsletter
       return { ...data, backToGathering: true };
     }
 
-    // Check if newsletter is ready from the generate webhook response
     let newsletterReady = false;
     newsletterReady =
       responseObj.newsletterReady === true ||
@@ -299,19 +532,15 @@ async function callGenerateNewsletterWebhook(previousResponseData) {
       (responseObj.products && responseObj.products.length > 0);
 
     if (newsletterReady) {
-      // Remove loading if it exists
       hideLoading();
 
-      // Check if there's a reply message to show before generating newsletter
       const replyMessage = responseObj.reply || responseObj.message;
 
       if (replyMessage) {
-        // Add the reply message to conversation history
         state.messages.push({ role: 'ai', content: replyMessage });
         addMessage(replyMessage, 'ai');
       }
 
-      // Trigger newsletter generation
       generateNewsletter(data);
     }
 
@@ -328,44 +557,32 @@ async function callGenerateNewsletterWebhook(previousResponseData) {
   }
 }
 
-// Handle form submission
 async function handleSubmit() {
   const message = userInput.value.trim();
   if (!message) return;
 
-  // Add user message to history
   state.messages.push({ role: 'user', content: message });
   addMessage(message, 'user');
 
-  // Clear input
   userInput.value = '';
   autoResizeTextarea();
   enableSubmitButton();
 
-  // Get AI response
   try {
-    // Show initial loading
     showLoading();
 
     const responseData = await getAIResponse(message);
     hideLoading();
 
-    // Extract the text message from the response
     let aiMessage;
     let newsletterReady = false;
     let shouldGenerateNewsletter = false;
 
     if (Array.isArray(responseData) && responseData.length > 0) {
-      // Check if response has output wrapper (n8n format)
       const dataObj = responseData[0].output || responseData[0];
 
-      console.log('Full response data object:', dataObj);
-      console.log('Stage value:', dataObj.stage);
-
-      // Check if stage is 'recommend' - this triggers the generate-newsletter webhook
       shouldGenerateNewsletter = dataObj.stage === 'recommend';
 
-      // Check if newsletter is ready - check multiple indicators
       newsletterReady =
         dataObj.newsletterReady === true ||
         (dataObj.data && dataObj.data.products) ||
@@ -381,7 +598,6 @@ async function handleSubmit() {
         finalResult: newsletterReady,
       });
 
-      // If newsletter is ready, skip showing the message since we'll show the generation message
       if (newsletterReady) {
         aiMessage = dataObj.message || 'Your selection is being prepared...';
       } else {
@@ -392,13 +608,11 @@ async function handleSubmit() {
           'Thank you for that information!';
       }
     } else {
-      // Check if response has output wrapper (n8n format)
       const dataObj = responseData.output || responseData;
 
       console.log('Full response data object (non-array):', dataObj);
       console.log('Stage value:', dataObj.stage);
 
-      // Check if stage is 'recommend' - this triggers the generate-newsletter webhook
       shouldGenerateNewsletter = dataObj.stage === 'recommend';
 
       newsletterReady =
@@ -417,14 +631,11 @@ async function handleSubmit() {
       }
     }
 
-    // Only add AI message if newsletter is not ready
-    // If newsletter is ready, we'll show the generation message directly
     if (!newsletterReady) {
       state.messages.push({ role: 'ai', content: aiMessage });
       addMessage(aiMessage, 'ai');
     }
 
-    // Check if we're in recommend stage and newsletter is ready
     const currentStage =
       Array.isArray(responseData) && responseData.length > 0
         ? (responseData[0].output || responseData[0]).stage
@@ -433,7 +644,6 @@ async function handleSubmit() {
     if (currentStage === 'recommend' && !newsletterReady) {
       console.log('Stage is recommend, showing loading message...');
 
-      // Update the loading message for the recommend stage
       const existingLoading = document.getElementById('loadingMessage');
       if (existingLoading) {
         existingLoading.remove();
@@ -443,43 +653,81 @@ async function handleSubmit() {
       showStatus('Generating your personalized selection...', 'success');
     }
 
-    // Check if stage is 'recommend' and call generate-newsletter webhook
     if (shouldGenerateNewsletter) {
-      console.log('Stage is recommend, calling generate-newsletter webhook...');
-      const generateResult = await callGenerateNewsletterWebhook(responseData);
+      console.log('Stage is recommend, calling webhooks...');
 
-      // If generate-newsletter returned to gathering stage, stop here
-      // The message has already been displayed in callGenerateNewsletterWebhook
+      let userPreferences = {};
+      if (Array.isArray(responseData) && responseData.length > 0) {
+        const dataObj = responseData[0].output || responseData[0];
+        userPreferences = dataObj.summary || dataObj.preferences || {};
+      } else {
+        const dataObj = responseData.output || responseData;
+        userPreferences = dataObj.summary || dataObj.preferences || {};
+      }
+
+      callShowroomWebhook(userPreferences)
+        .then((showroomResponse) => {
+          if (showroomResponse) {
+            console.log('Processing showroom response:', showroomResponse);
+
+            let showroomMessage = '';
+            if (
+              Array.isArray(showroomResponse) &&
+              showroomResponse.length > 0
+            ) {
+              const responseObj =
+                showroomResponse[0].output || showroomResponse[0];
+              showroomMessage =
+                responseObj.content || responseObj.message || '';
+            } else {
+              const responseObj = showroomResponse.output || showroomResponse;
+              showroomMessage =
+                responseObj.content || responseObj.message || '';
+            }
+
+            if (showroomMessage) {
+              // Hyperlink the word "showroom" in the message
+              const hyperlinkedMessage = showroomMessage.replace(
+                /\bshowroom\b/gi,
+                '<a href="https://www.fcilondon.co.uk/about-us/map-and-directions.html" target="_blank" style="color: #000000; text-decoration: underline;">showroom</a>'
+              );
+
+              state.messages.push({ role: 'ai', content: showroomMessage });
+              addMessage(hyperlinkedMessage, 'ai');
+
+              showAppointmentButton();
+            }
+          }
+        })
+        .catch((error) => {
+          console.error('Error processing showroom response:', error);
+        });
+
+      const generateResult = await callGenerateNewsletterWebhook(responseData);
       if (generateResult && generateResult.backToGathering) {
         console.log('Returned to gathering stage, continuing conversation...');
-        return; // Exit handleSubmit, allowing customer to respond
+        return;
       }
     }
 
-    // Update stage based on response from workflow
     if (newsletterReady) {
       console.log('Newsletter is ready, generating...', responseData);
 
-      // Remove loading if it exists
       hideLoading();
 
-      // Immediately trigger newsletter generation
       generateNewsletter(responseData);
     }
   } catch (error) {
     hideLoading();
     console.error('Error:', error);
 
-    // Show retry button and helpful message
     showRetryButton();
   }
 }
 
-// Generate newsletter
 function generateNewsletter(newsletterData) {
   console.log('generateNewsletter called with:', newsletterData);
 
-  // Show loading message in conversation
   const loadingDiv = document.createElement('div');
   loadingDiv.className = 'message ai';
   loadingDiv.id = 'newsletterLoading';
@@ -497,37 +745,29 @@ function generateNewsletter(newsletterData) {
   loadingDiv.appendChild(contentDiv);
   conversationHistory.appendChild(loadingDiv);
 
-  // Auto scroll to bottom
   conversationHistory.scrollTop = conversationHistory.scrollHeight;
 
-  // Store session data and newsletter data for the newsletter page
   sessionStorage.setItem('sessionId', state.sessionId);
   sessionStorage.setItem('newsletterData', JSON.stringify(newsletterData));
 
-  // Simulate processing time and show completion
   setTimeout(() => {
-    // Remove loading message
     const loadingMsg = document.getElementById('newsletterLoading');
     if (loadingMsg) {
       loadingMsg.remove();
     }
 
-    // Add completion message
     addMessage(
       'Click "View Selection" below to see your curated product picks.',
       'ai'
     );
 
     showStatus('Your personalized selection is ready!', 'success');
-
-    // Show button to view newsletter
     showNewsletterButton();
   }, 1500);
 }
 
-// Show newsletter button
-function showNewsletterButton() {
-  console.log('showNewsletterButton called');
+function showAppointmentButton() {
+  console.log('showAppointmentButton called');
   const actionButtons = document.querySelector('.action-buttons');
 
   if (!actionButtons) {
@@ -535,12 +775,39 @@ function showNewsletterButton() {
     return;
   }
 
-  console.log('Action buttons found, creating buttons...');
+  const existingAppointmentBtn = actionButtons.querySelector(
+    '.appointment-button'
+  );
+  if (existingAppointmentBtn) {
+    console.log('Appointment button already exists');
+    return;
+  }
 
-  // Clear existing buttons
+  const bookAppointmentBtn = document.createElement('button');
+  bookAppointmentBtn.className = 'submit-button appointment-button';
+  bookAppointmentBtn.textContent = 'Book an Appointment';
+  bookAppointmentBtn.style.backgroundColor = '#000000';
+  bookAppointmentBtn.style.color = '#ffffff';
+  bookAppointmentBtn.addEventListener('click', () => {
+    window.open(
+      'https://www.fcilondon.co.uk/book-a-showroom-visit.html',
+      '_blank'
+    );
+  });
+
+  actionButtons.insertBefore(bookAppointmentBtn, actionButtons.firstChild);
+}
+
+function showNewsletterButton() {
+  const actionButtons = document.querySelector('.action-buttons');
+
+  if (!actionButtons) {
+    console.error('Action buttons container not found!');
+    return;
+  }
+
   actionButtons.innerHTML = '';
 
-  // Create view newsletter button
   const viewNewsletterBtn = document.createElement('button');
   viewNewsletterBtn.className = 'submit-button';
   viewNewsletterBtn.textContent = 'View Selection';
@@ -548,7 +815,6 @@ function showNewsletterButton() {
     window.location.href = 'newsletter.php';
   });
 
-  // Create reset button
   const resetBtn = document.createElement('button');
   resetBtn.className = 'submit-button';
   resetBtn.textContent = 'Reset Brief';
@@ -564,27 +830,22 @@ function showNewsletterButton() {
   console.log('Buttons added successfully');
 }
 
-// Show retry button when error occurs
 function showRetryButton() {
   console.log('showRetryButton called');
-
-  // Change the submit button text to "Retry"
   submitButton.textContent = 'Retry';
   submitButton.disabled = false;
-
-  // Add message prompting user to be more specific
   addMessage(
     "I wasn't able to find exactly what you're looking for at the moment. Could you please provide more specific details about the furniture pieces you're interested in, or include a price range? This will help me assist you better.",
     'ai'
   );
 }
 
-// Event listeners
+// ===== EVENT LISTENERS =====
+
 userInput.addEventListener('input', () => {
   autoResizeTextarea();
   enableSubmitButton();
 
-  // Reset button text back to "Continue" if it was changed to "Retry"
   if (submitButton.textContent === 'Retry') {
     submitButton.textContent = 'Continue';
   }
@@ -594,26 +855,23 @@ userInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault();
     if (!submitButton.disabled) {
+      if (promptText && !promptText.classList.contains('stopped')) {
+        promptText.classList.add('stopped');
+      }
       handleSubmit();
     }
   }
 });
 
-micButton.addEventListener('click', () => {
-  if (!state.recognition) {
-    showStatus('Speech recognition not supported in this browser', 'error');
-    return;
-  }
+// Updated mic button event listener for Wisprflow
+micButton.addEventListener('click', toggleRecording);
 
-  if (state.isRecording) {
-    state.recognition.stop();
-  } else {
-    state.recognition.start();
+submitButton.addEventListener('click', () => {
+  if (promptText && !promptText.classList.contains('stopped')) {
+    promptText.classList.add('stopped');
   }
+  handleSubmit();
 });
 
-submitButton.addEventListener('click', handleSubmit);
-
-// Initialize
-initSpeechRecognition();
+// Initialize on page load
 userInput.focus();
