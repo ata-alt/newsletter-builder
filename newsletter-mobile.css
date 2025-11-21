@@ -1,0 +1,360 @@
+/* ===== MOBILE RESPONSIVE IMPROVEMENTS ===== */
+
+/* Base Mobile Styles (max-width: 768px) */
+@media (max-width: 768px) {
+    
+    /* PDF Cover Section */
+    .pdf-cover {
+        padding: 50px 20px 40px;
+    }
+    
+    .pdf-cover-text h2 {
+        font-size: 2rem !important;
+        margin-bottom: 24px !important;
+    }
+    
+    .pdf-intro {
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 36px;
+    }
+    
+    /* Product Preview Container - Mobile Grid */
+    #productPreviewContainer {
+        gap: 8px;
+    }
+    
+    .productRow:first-child,
+    .productRow:last-child {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    
+    .productRow > div {
+        height: 150px;
+    }
+    
+    /* Tips Section Mobile */
+    .pdf-section.alternate > div {
+        padding: 0;
+    }
+    
+    #tipsIntro {
+        font-size: 1rem !important;
+        line-height: 1.7 !important;
+        margin-bottom: 32px !important;
+    }
+    
+    #tipsThemeTitle {
+        font-size: 1.75rem !important;
+        margin-bottom: 32px !important;
+    }
+    
+    #tipsContent > div {
+        margin-bottom: 32px !important;
+    }
+    
+    #tipsContent h4 {
+        font-size: 1.125rem !important;
+    }
+    
+    #tipsContent p {
+        font-size: 1rem !important;
+        line-height: 1.7 !important;
+    }
+    
+    /* Products Section Mobile */
+    .pdf-section.products-section > div:first-child h3 {
+        font-size: 2rem !important;
+        margin-bottom: 8px !important;
+    }
+    
+    .pdf-section.products-section > div:first-child p {
+        font-size: 1rem !important;
+        line-height: 1.7 !important;
+    }
+    
+    /* Individual Product Items */
+    .product-item {
+        margin-bottom: 60px !important;
+    }
+    
+    .product-title-link {
+        font-size: 1.75rem !important;
+        margin-bottom: 24px !important;
+    }
+    
+    .product-title-link span {
+        font-size: 2rem !important;
+        display: block;
+        margin-bottom: 8px;
+    }
+    
+    .section-text-large {
+        font-size: 1.125rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 16px;
+    }
+    
+    .section-text {
+        font-size: 1rem !important;
+        line-height: 1.7 !important;
+    }
+    
+    /* Brand Spotlight Mobile */
+    .pdf-section h3 {
+        font-size: 2rem !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .pdf-section h4 {
+        font-size: 1.5rem !important;
+    }
+    
+    .pdf-section p {
+        font-size: 1rem !important;
+        line-height: 1.7 !important;
+    }
+    
+    /* Brand Logo Positioning Mobile */
+    .pdf-section > div > div > div > div {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 16px;
+    }
+    
+    .pdf-section > div > div > div > div img {
+        height: 32px !important;
+    }
+    
+    /* Showroom Strategy Mobile */
+    .pdf-section.alternate h3 {
+        font-size: 2rem !important;
+    }
+    
+    .pdf-section.alternate h4 {
+        font-size: 1.5rem !important;
+        margin-bottom: 24px !important;
+    }
+    
+    /* Showroom Grid Mobile */
+    .pdf-section.alternate > div:last-child > div:last-child > div {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+    }
+    
+    .pdf-section.alternate > div:last-child > div:last-child > div > div {
+        padding: 20px !important;
+    }
+    
+    .pdf-section.alternate > div:last-child > div:last-child > div > div p:first-child {
+        font-size: 0.9375rem !important;
+    }
+    
+    .pdf-section.alternate > div:last-child > div:last-child > div > div p:last-child {
+        font-size: 0.875rem !important;
+    }
+    
+    /* Questions Section Mobile */
+    .pdf-section.alternate > div > div > div {
+        margin-bottom: 24px !important;
+    }
+    
+    .pdf-section.alternate > div > div > div p:first-child {
+        font-size: 1.0625rem !important;
+        margin-bottom: 8px !important;
+    }
+    
+    .pdf-section.alternate > div > div > div p:last-child {
+        font-size: 0.9375rem !important;
+        padding-left: 16px !important;
+    }
+    
+    /* Final Thoughts Mobile */
+    .pdf-section > div > div h4 {
+        font-size: 1.5rem !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .pdf-section > div > div h5 {
+        font-size: 1.125rem !important;
+        margin-bottom: 12px !important;
+    }
+    
+    /* Blog Articles List Mobile */
+    #blogArticlesList li,
+    .pdf-section ul li {
+        font-size: 0.9375rem !important;
+        line-height: 1.8 !important;
+        padding-left: 16px !important;
+    }
+    
+    /* Final Secret Box Mobile */
+    .pdf-section > div > div > div[style*="background-color: #fafafa"] {
+        padding: 24px !important;
+        margin-top: 32px !important;
+    }
+    
+    /* Signature Section Mobile */
+    .pdf-section > div > div[style*="text-align: center"] p {
+        font-size: 1.0625rem !important;
+        line-height: 1.7 !important;
+    }
+    
+    /* Lightslider Mobile Adjustments */
+    .lSSlideWrapper .lSPager.lSGallery li {
+        margin: 0 1px !important;
+    }
+    
+    #showroom-slider {
+        min-height: 250px !important;
+    }
+}
+
+/* Extra Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    
+    .pdf-title {
+        font-size: 2rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .product-title-link {
+        font-size: 1.5rem !important;
+    }
+    
+    .product-title-link span {
+        font-size: 1.75rem !important;
+    }
+    
+    #tipsThemeTitle {
+        font-size: 1.5rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    .pdf-section h3 {
+        font-size: 1.75rem !important;
+    }
+    
+    .productRow > div {
+        height: 120px;
+    }
+    
+    /* Modal Mobile */
+    .modal-content {
+        padding: 24px 16px;
+    }
+    
+    .modal-title {
+        font-size: 1.375rem;
+    }
+    
+    .email-input {
+        font-size: 0.9375rem;
+        padding: 14px 16px;
+    }
+}
+
+/* Landscape Mobile (max-height: 500px and orientation: landscape) */
+@media (max-height: 500px) and (orientation: landscape) {
+    
+    .hero-split {
+        min-height: auto;
+    }
+    
+    .hero-image {
+        min-height: 250px;
+    }
+    
+    #showroom-slider {
+        min-height: 200px !important;
+    }
+}
+
+/* Tablet Adjustments (768px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    
+    .pdf-section,
+    .pdf-cover,
+    .pdf-insights,
+    .pdf-closing {
+        padding: 60px 40px;
+    }
+    
+    .section-split {
+        gap: 40px;
+    }
+    
+    .pdf-title {
+        font-size: 3rem;
+    }
+    
+    .hero-title {
+        font-size: 2.25rem;
+    }
+}
+
+/* Print Optimization */
+@media print {
+    
+    /* Hide interactive elements */
+    .pdf-header,
+    .modal,
+    .lightbox {
+        display: none !important;
+    }
+    
+    /* Optimize spacing for print */
+    .pdf-section {
+        padding: 30px 20px;
+    }
+    
+    /* Prevent page breaks inside important sections */
+    .product-item,
+    .section-split,
+    #tipsContent > div {
+        page-break-inside: avoid;
+    }
+    
+    /* Adjust font sizes for print */
+    body {
+        font-size: 11pt;
+    }
+    
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    
+    /* Increase touch targets */
+    .pdf-action-btn,
+    .email-submit,
+    .appointment-btn {
+        min-height: 48px;
+        padding: 14px 24px;
+    }
+    
+    /* Larger clickable areas */
+    .lightbox-close,
+    .modal-close {
+        min-width: 48px;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Remove hover effects */
+    .pdf-action-btn:hover,
+    .section-image-large img:hover,
+    .section-image-half img:hover {
+        opacity: 1;
+        background-color: inherit;
+    }
+}

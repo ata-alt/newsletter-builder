@@ -166,8 +166,9 @@ function updateNewsletterPage(content) {
   updateHeroSection(content, content.products);
   updateCoverSection(content);
   updateTipsSection(content.tips);
-  updateBrandSpotlight(content.brands);
+  updateBrandSpotlight(content.brandSpotlight);
   updateInsightsSection(content.insights);
+  updateBlogArticles(content.blogArticles);
 
   // Initialize lightbox for images
   if (typeof initializeLightbox === 'function') {
@@ -412,15 +413,19 @@ function updateProductPreviewGrid(products) {
 
   // Get all image containers from both rows
   const allImageContainers = [];
-  productRows.forEach(row => {
+  productRows.forEach((row) => {
     const containers = row.querySelectorAll('div');
-    containers.forEach(container => allImageContainers.push(container));
+    containers.forEach((container) => allImageContainers.push(container));
   });
 
   console.log(`Found ${allImageContainers.length} preview image slots`);
 
   // Determine how many products to show (up to 7 or available slots)
-  const productsToShow = Math.min(products.length, allImageContainers.length, MAX_PRODUCTS);
+  const productsToShow = Math.min(
+    products.length,
+    allImageContainers.length,
+    MAX_PRODUCTS
+  );
 
   // Update products in the preview grid
   products.slice(0, productsToShow).forEach((product, index) => {
@@ -435,8 +440,11 @@ function updateProductPreviewGrid(products) {
         img.src = imageUrl;
         img.alt = altText;
 
-        img.onerror = function() {
-          console.error(`Failed to load preview image for ${product.product_name}:`, imageUrl);
+        img.onerror = function () {
+          console.error(
+            `Failed to load preview image for ${product.product_name}:`,
+            imageUrl
+          );
           this.src = FALLBACK_IMAGE_URL;
           this.onerror = null;
         };
@@ -450,20 +458,25 @@ function updateProductPreviewGrid(products) {
         container.parentNode.replaceChild(newContainer, container);
 
         // Add click handler to scroll to corresponding product
-        newContainer.addEventListener('click', function() {
+        newContainer.addEventListener('click', function () {
           const productIndex = parseInt(this.dataset.productIndex);
           const productItems = document.querySelectorAll('.product-item');
 
           if (productIndex > 0 && productIndex <= productItems.length) {
             const targetProduct = productItems[productIndex - 1];
-            targetProduct.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            targetProduct.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+            });
             console.log(`Scrolling to product ${productIndex}`);
           }
         });
 
         // Show the container
         newContainer.style.display = '';
-        console.log(`✓ Preview image ${index + 1} updated with ${product.product_name}`);
+        console.log(
+          `✓ Preview image ${index + 1} updated with ${product.product_name}`
+        );
       }
     }
   });
@@ -550,21 +563,42 @@ function updateTipsSection(tips) {
   if (!tips) return;
 
   const tipsContent = document.getElementById('tipsContent');
+  const tipsIntro = document.getElementById('tipsIntro');
+  const tipsThemeTitle = document.getElementById('tipsThemeTitle');
   const tipsCategory = document.getElementById('tipsCategory');
 
-  if (tipsCategory && tips.category) {
+  // Update intro paragraph
+  if (tipsIntro && tips.intro) {
+    tipsIntro.textContent = tips.intro;
+    console.log('✓ Tips intro updated');
+  }
+
+  // Update theme title - handle both full title or category
+  if (tipsThemeTitle && tips.theme_title) {
+    // If theme_title contains <br>, we need to handle HTML
+    if (tips.theme_title.includes('<br>')) {
+      tipsThemeTitle.innerHTML = tips.theme_title;
+    } else {
+      // Replace entire content with the theme title
+      tipsThemeTitle.innerHTML = tips.theme_title.replace(/\n/g, '<br>');
+    }
+    console.log('✓ Tips theme title updated:', tips.theme_title);
+  } else if (tipsCategory && tips.category) {
+    // Fallback to category if theme_title not provided
     tipsCategory.textContent = tips.category;
   }
 
-  if (tipsContent && tips.items && Array.isArray(tips.items)) {
+  // Update tips list - check for both 'tips' and 'items' for backward compatibility
+  const tipsArray = tips.tips || tips.items;
+  if (tipsContent && tipsArray && Array.isArray(tipsArray)) {
     tipsContent.innerHTML = '';
 
-    tips.items.forEach((tip, index) => {
-      const tipDiv = createTipElement(tip, index, tips.items.length);
+    tipsArray.forEach((tip, index) => {
+      const tipDiv = createTipElement(tip, index, tipsArray.length);
       tipsContent.appendChild(tipDiv);
     });
 
-    console.log(`✓ Tips section updated with ${tips.items.length} tips`);
+    console.log(`✓ Tips section updated with ${tipsArray.length} tips`);
   }
 }
 
@@ -587,7 +621,8 @@ function createTipElement(tip, index, totalTips) {
   const tipText = document.createElement('p');
   tipText.style.cssText =
     'font-size: 1.125rem; line-height: 1.9; color: #333333;';
-  tipText.textContent = tip.description;
+  // Support both 'body' and 'description' for backward compatibility
+  tipText.textContent = tip.body || tip.description;
 
   tipDiv.appendChild(tipTitle);
   tipDiv.appendChild(tipText);
@@ -597,14 +632,21 @@ function createTipElement(tip, index, totalTips) {
 
 /**
  * Updates the brand spotlight section
- * @param {Array} brands - Array of brand objects
+ * @param {Object} brandSpotlight - Brand spotlight data object with introduction, brands, and investment_note
  */
-function updateBrandSpotlight(brands) {
-  if (!brands || !Array.isArray(brands)) return;
+function updateBrandSpotlight(brandSpotlight) {
+  if (!brandSpotlight) return;
 
+  const brandSpotlightIntro = document.getElementById('brandSpotlightIntro');
   const brandSpotlightContent = document.getElementById(
     'brandSpotlightContent'
   );
+
+  // Update introduction text
+  if (brandSpotlightIntro && brandSpotlight.introduction) {
+    brandSpotlightIntro.textContent = brandSpotlight.introduction;
+    console.log('✓ Brand spotlight intro updated');
+  }
 
   if (!brandSpotlightContent) {
     console.warn('Brand spotlight content element not found');
@@ -613,21 +655,34 @@ function updateBrandSpotlight(brands) {
 
   brandSpotlightContent.innerHTML = '';
 
-  brands.forEach((brand, index) => {
-    const brandDiv = createBrandElement(brand, index);
-    brandSpotlightContent.appendChild(brandDiv);
-  });
+  // Update brands array
+  if (brandSpotlight.brands && Array.isArray(brandSpotlight.brands)) {
+    brandSpotlight.brands.forEach((brand) => {
+      const brandDiv = createBrandElement(brand);
+      brandSpotlightContent.appendChild(brandDiv);
+    });
 
-  console.log(`✓ Brand spotlight updated with ${brands.length} brands`);
+    console.log(
+      `✓ Brand spotlight updated with ${brandSpotlight.brands.length} brands`
+    );
+  }
+
+  // Add investment note section
+  if (brandSpotlight.investment_note) {
+    const investmentDiv = createInvestmentNoteElement(
+      brandSpotlight.investment_note
+    );
+    brandSpotlightContent.appendChild(investmentDiv);
+    console.log('✓ Investment note added');
+  }
 }
 
 /**
  * Creates a single brand spotlight element
- * @param {Object} brand - Brand data object
- * @param {number} index - Brand index
+ * @param {Object} brand - Brand data object with rank, name, opening, what_sets_apart, insider_tip
  * @returns {HTMLElement} Brand div element
  */
-function createBrandElement(brand, index) {
+function createBrandElement(brand) {
   const brandDiv = document.createElement('div');
   brandDiv.style.marginBottom = '60px';
 
@@ -639,7 +694,9 @@ function createBrandElement(brand, index) {
   const brandTitle = document.createElement('h4');
   brandTitle.style.cssText =
     'font-size: 1.75rem; font-weight: 400; color: #000000; margin: 0;';
-  brandTitle.textContent = `${index + 1} - ${brand.name}`;
+  // Use rank if available, otherwise use index
+  const rank = brand.rank || '';
+  brandTitle.textContent = rank ? `${rank} - ${brand.name}` : brand.name;
   headerDiv.appendChild(brandTitle);
 
   if (brand.logo) {
@@ -652,8 +709,35 @@ function createBrandElement(brand, index) {
 
   brandDiv.appendChild(headerDiv);
 
-  // Add brand description
-  if (brand.description) {
+  // Add opening paragraph
+  if (brand.opening) {
+    const openingP = document.createElement('p');
+    openingP.style.cssText =
+      'font-size: 1.125rem; line-height: 1.9; color: #333333; margin-bottom: 20px;';
+    openingP.textContent = brand.opening;
+    brandDiv.appendChild(openingP);
+  }
+
+  // Add "what sets apart" paragraph
+  if (brand.what_sets_apart) {
+    const setsApartP = document.createElement('p');
+    setsApartP.style.cssText =
+      'font-size: 1.125rem; line-height: 1.9; color: #333333; margin-bottom: 20px;';
+    setsApartP.textContent = brand.what_sets_apart;
+    brandDiv.appendChild(setsApartP);
+  }
+
+  // Add insider tip
+  if (brand.insider_tip) {
+    const tipP = document.createElement('p');
+    tipP.style.cssText =
+      'font-size: 1rem; line-height: 1.8; color: #666666; font-style: italic; padding-left: 24px; border-left: 3px solid #000000; margin-top: 32px;';
+    tipP.innerHTML = `<strong>Insider tip:</strong> ${brand.insider_tip}`;
+    brandDiv.appendChild(tipP);
+  }
+
+  // Backward compatibility: support old format with description and insiderTip
+  if (!brand.opening && brand.description) {
     const descP = document.createElement('p');
     descP.style.cssText =
       'font-size: 1.125rem; line-height: 1.9; color: #333333; margin-bottom: 20px;';
@@ -661,8 +745,7 @@ function createBrandElement(brand, index) {
     brandDiv.appendChild(descP);
   }
 
-  // Add insider tip
-  if (brand.insiderTip) {
+  if (!brand.insider_tip && brand.insiderTip) {
     const tipP = document.createElement('p');
     tipP.style.cssText =
       'font-size: 1rem; line-height: 1.8; color: #666666; font-style: italic; padding-left: 24px; border-left: 3px solid #000000; margin-top: 32px;';
@@ -671,6 +754,34 @@ function createBrandElement(brand, index) {
   }
 
   return brandDiv;
+}
+
+/**
+ * Creates the investment note element
+ * @param {Object} investmentNote - Investment note object with title and content
+ * @returns {HTMLElement} Investment note div element
+ */
+function createInvestmentNoteElement(investmentNote) {
+  const investmentDiv = document.createElement('div');
+  investmentDiv.style.marginBottom = '40px';
+
+  if (investmentNote.title) {
+    const titleH4 = document.createElement('h4');
+    titleH4.style.cssText =
+      'font-size: 1.5rem; font-weight: 600; color: #000000; margin-bottom: 16px;';
+    titleH4.textContent = investmentNote.title;
+    investmentDiv.appendChild(titleH4);
+  }
+
+  if (investmentNote.content) {
+    const contentP = document.createElement('p');
+    contentP.style.cssText =
+      'font-size: 1.125rem; line-height: 1.9; color: #333333;';
+    contentP.textContent = investmentNote.content;
+    investmentDiv.appendChild(contentP);
+  }
+
+  return investmentDiv;
 }
 
 /**
@@ -708,6 +819,57 @@ function updateInsightsSection(insights) {
   });
 
   console.log(`✓ Insights section updated with ${insightKeys.length} insights`);
+}
+
+/**
+ * Updates the blog articles list in the Further Reading section
+ * @param {Array} blogArticles - Array of blog article objects with id, title, and url
+ */
+function updateBlogArticles(blogArticles) {
+  if (!blogArticles || !Array.isArray(blogArticles)) return;
+
+  const blogArticlesList = document.getElementById('blogArticlesList');
+
+  if (!blogArticlesList) {
+    console.warn('Blog articles list element not found');
+    return;
+  }
+
+  blogArticlesList.innerHTML = '';
+
+  blogArticles.forEach((article) => {
+    const listItem = document.createElement('li');
+    listItem.style.cssText =
+      'font-size: 1rem; line-height: 2; color: #333333; padding-left: 20px; position: relative;';
+
+    const bulletSpan = document.createElement('span');
+    bulletSpan.style.cssText = 'position: absolute; left: 0;';
+    bulletSpan.textContent = '•';
+
+    const articleLink = document.createElement('a');
+    articleLink.href = buildProductUrl(article.url);
+    articleLink.target = '_blank';
+    articleLink.style.cssText = 'color: #333333; text-decoration: none;';
+    articleLink.textContent = `"${article.title}"`;
+
+    // Add hover effect
+    articleLink.addEventListener('mouseenter', function () {
+      this.style.textDecoration = 'underline';
+      this.style.color = '#000000';
+    });
+
+    articleLink.addEventListener('mouseleave', function () {
+      this.style.textDecoration = 'none';
+      this.style.color = '#333333';
+    });
+
+    listItem.appendChild(bulletSpan);
+    listItem.appendChild(articleLink);
+
+    blogArticlesList.appendChild(listItem);
+  });
+
+  console.log(`✓ Blog articles updated with ${blogArticles.length} articles`);
 }
 
 // ===== INITIALIZATION =====
@@ -804,12 +966,92 @@ if (emailForm) {
     try {
       showEmailStatus('Sending to your email...', 'info');
 
-      const htmlContent = captureHTMLContent();
+      // Check if PDF document exists before extracting
+      const pdfDocument = document.querySelector('.pdf-document');
+      if (!pdfDocument) {
+        console.error('PDF document (.pdf-document) not found in DOM');
+        console.log(
+          'Available elements:',
+          document.querySelectorAll('section, .pdf-hero, .pdf-cover')
+        );
+        showEmailStatus(
+          'Error: Newsletter content not found. Please refresh the page.',
+          'error'
+        );
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'SEND TO EMAIL';
+        return;
+      }
 
-      const webhookUrl =
-        'https://n8n.srv983823.hstgr.cloud/webhook/save-newsletter';
+      // Extract structured data from DOM
+      // Use extractNewsletterDataFromDOM from email-generator.js
+      let domData = {};
+      if (typeof extractNewsletterDataFromDOM === 'function') {
+        try {
+          domData = extractNewsletterDataFromDOM() || {};
+          console.log('DOM Data extracted:', domData);
+          console.log('DOM Data sections:', Object.keys(domData));
 
-      const response = await fetch(webhookUrl, {
+          // ADD THESE NEW CONSOLE LOGS:
+          console.log('=== DEBUGGING COVER SECTION ===');
+          console.log('Cover Section exists:', !!domData.coverSection);
+          console.log(
+            'Product Preview data:',
+            domData.coverSection?.productPreview
+          );
+          console.log(
+            'Number of rows:',
+            domData.coverSection?.productPreview?.length
+          );
+          if (domData.coverSection?.productPreview) {
+            domData.coverSection.productPreview.forEach((row, i) => {
+              console.log(`Row ${i} has ${row.length} images`);
+              row.forEach((img, j) => {
+                console.log(`  Image ${j}:`, img.alt || 'No alt');
+              });
+            });
+          }
+          console.log('=== END DEBUG ===');
+
+          // Check if we got any data
+          if (!domData || Object.keys(domData).length === 0) {
+            console.warn('Warning: DOM extraction returned empty data');
+            console.log(
+              'PDF document HTML:',
+              pdfDocument.innerHTML.substring(0, 500)
+            );
+          }
+        } catch (error) {
+          console.error('Error extracting DOM data:', error);
+          console.error('Error stack:', error.stack);
+          domData = {};
+        }
+      } else {
+        console.error('extractNewsletterDataFromDOM function not found!');
+        console.log(
+          'Available functions:',
+          typeof captureHTMLContent,
+          typeof extractNewsletterData
+        );
+        showEmailStatus(
+          'Error: Extraction function not available. Please refresh the page.',
+          'error'
+        );
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'SEND TO EMAIL';
+        return;
+      }
+
+      const newsletterData = sessionStorage.getItem('newsletterData');
+      console.log(
+        'Newsletter Data from sessionStorage:',
+        newsletterData ? 'Found' : 'Not found'
+      );
+
+      // Call PHP handler instead of webhook
+      const handlerUrl = 'handler.personalize-newsletter.php';
+
+      const response = await fetch(handlerUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -821,21 +1063,29 @@ if (emailForm) {
           privacyAgreed: privacyAgreed,
           timestamp: new Date().toISOString(),
           selection: 'personalized-newsletter',
-          htmlContent: htmlContent,
-          newsletterData: sessionStorage.getItem('newsletterData'),
+          newsletterData: newsletterData,
+          domData: domData || {},
         }),
       });
 
       if (response.ok) {
-        showEmailStatus('Successfully sent to your email!', 'success');
-        setTimeout(() => {
-          emailModal.classList.remove('active');
-          emailForm.reset();
-          emailStatus.textContent = '';
-          emailStatus.className = 'email-status';
-        }, 2000);
+        const result = await response.json();
+        if (result.success) {
+          showEmailStatus('Successfully sent to your email!', 'success');
+          setTimeout(() => {
+            emailModal.classList.remove('active');
+            emailForm.reset();
+            emailStatus.textContent = '';
+            emailStatus.className = 'email-status';
+          }, 2000);
+        } else {
+          throw new Error(result.message || 'Failed to send email');
+        }
       } else {
-        throw new Error('Failed to send email');
+        const errorData = await response
+          .json()
+          .catch(() => ({ error: 'Unknown error' }));
+        throw new Error(errorData.error || 'Failed to send email');
       }
     } catch (error) {
       console.error('Email error:', error);

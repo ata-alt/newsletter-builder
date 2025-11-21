@@ -10,6 +10,93 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="newsletter.css?v=6">
+    <link rel="stylesheet" href="newsletter-mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/css/lightslider.min.css">
+    <style>
+        /* Showroom Slider Custom Styles */
+        #showroom-slider {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #showroom-slider li {
+            text-align: center;
+        }
+
+        #showroom-slider li img {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-width: 100%;
+        }
+
+        /* Ensure slider wrapper displays */
+        .lSSlideWrapper {
+            position: relative;
+            display: block;
+            overflow: hidden;
+        }
+
+        .lSSlideWrapper .lSSlideOuter {
+            position: relative;
+            display: block;
+            overflow: hidden;
+        }
+
+        .lSSlideWrapper .lSSlideOuter .lSSlideWrapper {
+            overflow: visible;
+        }
+
+        /* Ensure main slides display */
+        .lSSlideWrapper .lSSlide {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .lSSlideWrapper .lSSlide.active {
+            display: block !important;
+            opacity: 1 !important;
+        }
+
+        .lSSlideWrapper .lSSlide img {
+            display: block !important;
+            width: 100% !important;
+            height: auto !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        /* Make thumbnails closer together */
+        .lSSlideWrapper .lSPager.lSGallery {
+            margin-top: 10px !important;
+        }
+
+        .lSSlideWrapper .lSPager.lSGallery li {
+            margin: 0 2px !important;
+            padding: 0 !important;
+        }
+
+        .lSSlideWrapper .lSPager.lSGallery li img {
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .lSSlideWrapper .lSPager.lSGallery li.active img,
+        .lSSlideWrapper .lSPager.lSGallery li:hover img {
+            border-color: #000;
+        }
+
+        /* Fix for cS-hidden class - show content after slider initializes */
+        .cS-hidden {
+            opacity: 0;
+        }
+
+        .lSSlideWrapper .cS-hidden {
+            opacity: 1;
+        }
+    </style>
 </head>
 
 <body class="newsletter-page">
@@ -39,7 +126,7 @@
             <section class="pdf-hero">
                 <div class="hero-split">
                     <div class="hero-image">
-                        <img src="unnamed.jpg" alt="Luxury living room" id="heroImage">
+                        <img src="unnamed2.jpg" alt="Luxury living room" id="heroImage">
                     </div>
                     <div class="hero-content">
                         <h1 class="hero-title">
@@ -62,17 +149,17 @@
                     <div id="productPreviewContainer">
                         <!-- First Row: 3 images -->
                         <div class="productRow">
-                            <div class="wide"><img src="unnamed.jpg" alt="Product 1"></div>
-                            <div class="wide"><img src="unnamed.jpg" alt="Product 2"></div>
-                            <div class="narrow"><img src="unnamed.jpg" alt="Product 3"></div>
+                            <div class="wide"><img src="unnamed2.jpg" alt="Product 1"></div>
+                            <div class="wide"><img src="unnamed2.jpg" alt="Product 2"></div>
+                            <div class="narrow"><img src="unnamed2.jpg" alt="Product 3"></div>
                         </div>
 
                         <!-- Second Row: 4 images -->
                         <div class="productRow">
-                            <div class="narrow"><img src="unnamed.jpg" alt="Product 4"></div>
-                            <div class="wide"><img src="unnamed.jpg" alt="Product 5"></div>
-                            <div class="narrow"><img src="unnamed.jpg" alt="Product 6"></div>
-                            <div class="narrow"><img src="unnamed.jpg" alt="Product 7"></div>
+                            <div class="narrow"><img src="unnamed2.jpg" alt="Product 4"></div>
+                            <div class="wide"><img src="unnamed2.jpg" alt="Product 5"></div>
+                            <div class="narrow"><img src="unnamed2.jpg" alt="Product 6"></div>
+                            <div class="narrow"><img src="unnamed2.jpg" alt="Product 7"></div>
                         </div>
                     </div>
                 </div>
@@ -81,11 +168,11 @@
             <!-- Tips Section -->
             <section class="pdf-section alternate">
                 <div style="max-width: 800px; margin: 0 auto;">
-                    <p style="font-size: 1.125rem; line-height: 1.9; color: #333333; margin-bottom: 48px;">
+                    <p id="tipsIntro" style="font-size: 1.125rem; line-height: 1.9; color: #333333; margin-bottom: 48px;">
                         Now, before we dive into my carefully curated selection, let me share a few insider secrets that will save you both time and potential disappointment. These are the sorts of things I tell my clients over champagne at the showroom. Consider yourself part of the inner circle.
                     </p>
 
-                    <h3 style="font-size: 2.25rem; font-weight: 400; color: #000000; margin-bottom: 48px; text-align: center; letter-spacing: -0.01em;">
+                    <h3 id="tipsThemeTitle" style="font-size: 2.25rem; font-weight: 400; color: #000000; margin-bottom: 48px; text-align: center; letter-spacing: -0.01em;">
                         Five Essential Tips for Choosing Your Perfect<br><span id="tipsCategory">Furniture</span>
                     </h3>
 
@@ -150,7 +237,7 @@
                     </h3>
                     <div class="section-split" style="gap: 56px; align-items: flex-start;">
                         <div class="section-image-half">
-                            <img src="unnamed.jpg" alt="Product image">
+                            <img src="unnamed2.jpg" alt="Product image">
                         </div>
                         <div class="section-content-half">
                             <p class="section-text-large">The Italians do many things well, but this is pure poetry in craftsmanship.</p>
@@ -165,7 +252,7 @@
                         <span style="font-size: 2.75rem; font-weight: 300; color: #d0d0d0; margin-right: 16px;">2</span>– Product Name
                     </h3>
                     <div class="section-image-large" style="margin-bottom: 40px;">
-                        <img src="unnamed.jpg" alt="Product image">
+                        <img src="unnamed2.jpg" alt="Product image">
                     </div>
                     <div style="max-width: 900px; margin: 0 auto;">
                         <p class="section-text-large">The Italians do many things well, but this is pure poetry in craftsmanship.</p>
@@ -179,7 +266,7 @@
                 <div class="product-item" style="max-width: 1100px; margin: 0 auto 80px;">
                     <div class="section-split" style="gap: 56px; align-items: flex-start;">
                         <div class="section-image-half" style="flex: 1;">
-                            <img src="unnamed.jpg" alt="Product image">
+                            <img src="unnamed2.jpg" alt="Product image">
                         </div>
                         <div style="flex: 1; padding-top: 0;">
                             <h3 class="product-title-link" style="font-size: 2.25rem; font-weight: 400; color: #000000; margin-bottom: 28px; letter-spacing: -0.005em; font-family: 'Crimson Text', 'Georgia', 'Times New Roman', serif;">
@@ -196,7 +283,7 @@
                 <!-- Product 4 - Full Width Image + Title Below Centered -->
                 <div class="product-item" style="max-width: 1100px; margin: 0 auto;">
                     <div class="section-image-large">
-                        <img src="unnamed.jpg" alt="Product image">
+                        <img src="unnamed2.jpg" alt="Product image">
                     </div>
                     <h3 class="product-title-link" style="font-size: 2.25rem; font-weight: 400; color: #000000;  text-align: center; letter-spacing: -0.005em; font-family: 'Crimson Text', 'Georgia', 'Times New Roman', serif;">
                         <span style="font-size: 2.75rem; font-weight: 300; color: #d0d0d0; margin-right: 16px;">4</span>– Product Name
@@ -212,7 +299,7 @@
                 <!-- Product 5 - Full Width Image + Title Below -->
                 <div class="product-item" style="max-width: 1100px; margin: 0 auto 80px;">
                     <div class="section-image-large">
-                        <img src="unnamed.jpg" alt="Product image">
+                        <img src="unnamed2.jpg" alt="Product image">
                     </div>
                     <h3 class="product-title-link" style="font-size: 2.25rem; font-weight: 400; color: #000000;  text-align: center; letter-spacing: -0.005em; font-family: 'Crimson Text', 'Georgia', 'Times New Roman', serif;">
                         <span style="font-size: 2.75rem; font-weight: 300; color: #d0d0d0; margin-right: 16px;">5</span>– Product Name
@@ -232,7 +319,7 @@
                     </h3>
                     <div class="section-split" style="display: flex; gap: 60px; align-items: flex-start; flex-wrap: wrap;">
                         <div class="section-image-half" style="flex: 1; min-width: 320px; max-width: 50%; height: auto; overflow: hidden; background-color: #ffffff;">
-                            <img src="unnamed.jpg" alt="Product image">
+                            <img src="unnamed2.jpg" alt="Product image">
                         </div>
                         <div class="section-content-half" style="flex: 1; min-width: 300px;">
                             <p class="section-text-large">The Italians do many things well, but this is pure poetry in craftsmanship.</p>
@@ -249,7 +336,7 @@
                         <span style="font-size: 2.75rem; font-weight: 300; color: #d0d0d0; margin-right: 16px;">7</span>– Product Name
                     </h3>
                     <div class="section-image-large" style="margin-bottom: 40px;">
-                        <img src="unnamed.jpg" alt="Product image">
+                        <img src="unnamed2.jpg" alt="Product image">
                     </div>
                     <div style="max-width: 900px; margin: 0 auto;">
                         <p class="section-text-large">The Italians do many things well, but this is pure poetry in craftsmanship.</p>
@@ -266,7 +353,7 @@
                     <h3 style="font-size: 2.5rem; font-weight: 300; color: #000000; margin-bottom: 24px; text-align: center; letter-spacing: -0.02em;">
                         Brand Spotlight: Your Perfect Match
                     </h3>
-                    <p style="font-size: 1.125rem; line-height: 1.9; color: #333333; margin-bottom: 60px; text-align: center;">
+                    <p id="brandSpotlightIntro" style="font-size: 1.125rem; line-height: 1.9; color: #333333; margin-bottom: 60px; text-align: center;">
                         Given your requirements, two brands stand head and shoulders above the rest. Allow me to elaborate on why these should be at the top of your list.
                     </p>
 
@@ -277,7 +364,7 @@
                         <div style="margin-bottom: 60px;">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
                                 <h4 style="font-size: 1.75rem; font-weight: 400; color: #000000; margin: 0;">1 - Gamma & Dandy</h4>
-                                <img src="unnamed.jpg" alt="Gamma & Dandy Logo" style="height: 40px; object-fit: contain;">
+                                <img src="unnamed2.jpg" alt="Gamma & Dandy Logo" style="height: 40px; object-fit: contain;">
                             </div>
                             <p style="font-size: 1.125rem; line-height: 1.9; color: #333333; margin-bottom: 20px;">
                                 In the forty years I've been specifying furniture, Gamma has never once disappointed. They're the Hermès of the sofa world: uncompromising on quality, innovative without being gimmicky, and their leather processing is genuinely unmatched.
@@ -294,7 +381,7 @@
                         <div style="margin-bottom: 60px;">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
                                 <h4 style="font-size: 1.75rem; font-weight: 400; color: #000000; margin: 0;">2 - Ditre Italia</h4>
-                                <img src="unnamed.jpg" alt="Ditre Italia Logo" style="height: 40px; object-fit: contain;">
+                                <img src="unnamed2.jpg" alt="Ditre Italia Logo" style="height: 40px; object-fit: contain;">
                             </div>
                             <p style="font-size: 1.125rem; line-height: 1.9; color: #333333; margin-bottom: 20px;">
                                 The thinking person's choice. While everyone else is chasing the latest trends, Ditre quietly creates exceptional furniture that works brilliantly forever. They're particularly clever with their modular systems. The engineering is impeccable.
@@ -324,6 +411,47 @@
                     <h3 style="font-size: 2.5rem; font-weight: 300; color: #000000; margin-bottom: 24px; text-align: center; letter-spacing: -0.02em;">
                         Your Showroom Strategy
                     </h3>
+                </div>
+
+                <!-- Showroom Image Slider -->
+                <div>
+                    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0;">
+                        <ul id="showroom-slider" class="cS-hidden" style="min-height: clamp(300px, 56.25vw, 675px);">
+                            <li data-thumb="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=189/site-assets/images/new-showroom/t/fci-luxury-furniture-collection.jpg" class="banner-slide" style="position:relative;">
+                                <img src="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=1200/site-assets/images/new-showroom/fci-london-luxury-furniture-collection.jpg" alt="Sophisticated luxury furniture collection with a contemporary sofa and stylish accessories" height="675" width="1200">
+                            </li>
+                            <li data-thumb="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=189/site-assets/images/new-showroom/t/fci-luxury-showroom-experience.jpg" height="189" width="189">
+                                <img src="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=1200/site-assets/images/new-showroom/Fci-London-luxury-showroom-experience.jpeg" alt="FCI London showroom displaying a variety of high-end modern furniture piece" class="img-thumbnail" height="675" width="1200" loading="lazy">
+                            </li>
+                            <li data-thumb="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=189/site-assets/images/new-showroom/t/fci-luxury-modern-furniture.jpg" height="189" width="189">
+                                <img src="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=1200/site-assets/images/new-showroom/Fci-London-luxury-modern-furniture.jpeg" alt="FCI London luxury modern furniture" class="img-thumbnail" height="675" width="1200" loading="lazy">
+                            </li>
+                            <li data-thumb="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=189/site-assets/images/new-showroom/t/fci-luxury-living-space.jpg" height="189" width="189">
+                                <img src="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=1200/site-assets/images/new-showroom/Fci-London-luxury-living-space.jpeg" alt="Luxury living room with modern furniture and decor elements in FCI London showroom" class="img-thumbnail" height="675" width="1200" loading="lazy">
+                            </li>
+                            <li data-thumb="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=189/site-assets/images/new-showroom/t/fci-luxury-interior-design.jpg" height="189" width="189">
+                                <img src="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=1200/site-assets/images/new-showroom/Fci-London-luxury-interior-design.jpeg" alt="Modern luxury furniture collection with chic seating and sophisticated design elements" class="img-thumbnail" height="675" width="1200" loading="lazy">
+                            </li>
+                            <li data-thumb="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=189/site-assets/images/new-showroom/t/fci-luxury-home-decor.jpg" height="189" width="189">
+                                <img src="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=1200/site-assets/images/new-showroom/Fci-London-luxury-home-decor.jpeg" alt="Stylish home decor setup with luxury furniture and accessories in FCI London showroom" class="img-thumbnail" height="675" width="1200" loading="lazy">
+                            </li>
+                            <li data-thumb="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=189/site-assets/images/new-showroom/t/fci-luxury-furniture-showroom.jpg" height="189" width="189">
+                                <img src="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=1200/site-assets/images/new-showroom/Fci-London-luxury-furniture-showroom.jpeg" alt="Modern marble TV wall unit with integrated lighting and floating shelves in a luxury furniture showroom" class="img-thumbnail" height="675" width="1200" loading="lazy">
+                            </li>
+                            <li data-thumb="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=189/site-assets/images/new-showroom/t/fci-london-luxury-dining-collection.jpg" height="189" width="189">
+                                <img src="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=1200/site-assets/images/new-showroom/Fci-London-luxury-dining-collection.jpeg" alt="Elegant dining room set featuring a wooden dining table and luxury chairs at FCI London" class="img-thumbnail" height="675" width="1200" loading="lazy">
+                            </li>
+                            <li data-thumb="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=189/site-assets/images/new-showroom/t/fci-luxury-design-experience.jpg" height="189" width="189">
+                                <img src="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=1200/site-assets/images/new-showroom/Fci-London-luxury-design-experience.jpeg" alt="FCI London luxury design experience" class="img-thumbnail" height="675" width="1200" loading="lazy">
+                            </li>
+                            <li data-thumb="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=189/site-assets/images/new-showroom/t/fci-luxury-bedroom-collection.jpg" height="189" width="189">
+                                <img src="https://www.fcilondon.co.uk/cdn-cgi/image/quality=50,f=auto,w=1200/site-assets/images/new-showroom/Fci-London-luxury-bedroom-collection.jpeg" alt="Luxury bedroom with modern bed and designer furniture at FCI London showroom" class="img-thumbnail" height="675" width="1200" loading="lazy">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="max-width: 800px; margin: 0 auto;">
                     <p style="font-size: 1.125rem; line-height: 1.9; color: #333333; margin-bottom: 60px; text-align: center;">
                         I understand you'll be doing the rounds, and quite right too. This is not a decision to be taken lightly. To ensure you make the most of your showroom visits, I've prepared your essential reconnaissance kit.
                     </p>
@@ -363,7 +491,7 @@
                     <div>
                         <h4 style="font-size: 1.75rem; font-weight: 400; color: #000000; margin-bottom: 32px;">What to Bring to the Showroom</h4>
 
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px;">
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
                             <div style="background-color: #ffffff; padding: 24px; border: 1px solid #e0e0e0;">
                                 <p style="font-size: 1rem; font-weight: 600; color: #000000; margin-bottom: 8px;">Your room measurements</p>
                                 <p style="font-size: 0.9rem; line-height: 1.6; color: #666666;">Including doorways, stairs, and lift dimensions. Don't forget ceiling height.</p>
@@ -381,6 +509,7 @@
                                 <p style="font-size: 0.9rem; line-height: 1.6; color: #666666;">Someone who'll tell you if you're making a mistake. Preferably someone who's familiar with your space.</p>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>
@@ -407,7 +536,8 @@
 
                         <div style="margin-bottom: 32px;">
                             <h5 style="font-size: 1.25rem; font-weight: 600; font-style: italic; color: #000000; margin-bottom: 16px;">Further Reading</h5>
-                            <ul style="list-style: none; padding: 0; margin: 0;">
+                            <ul id="blogArticlesList" style="list-style: none; padding: 0; margin: 0;">
+                                <!-- Default items - will be replaced dynamically if data is provided -->
                                 <li style="font-size: 1rem; line-height: 2; color: #333333; padding-left: 20px; position: relative;">
                                     <span style="position: absolute; left: 0;">•</span> "Modern Furniture: A Design Evolution" - Our latest blog post
                                 </li>
@@ -459,47 +589,6 @@
                     </div>
                 </div>
             </section>
-
-            <!-- Your Style Profile Section -->
-            <section class="pdf-insights">
-                <div class="insights-header">
-                    <h3 class="insights-title">Your Style Profile</h3>
-                    <p class="insights-subtitle">These selections are based on your unique preferences</p>
-                </div>
-                <div class="insights-cards">
-                    <div class="insight-item">
-                        <div class="insight-icon-box">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                            </svg>
-                        </div>
-                        <h4 class="insight-title-text">Style Match</h4>
-                        <p class="insight-description">Contemporary minimalist design with clean lines and neutral tones</p>
-                    </div>
-                    <div class="insight-item">
-                        <div class="insight-icon-box">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                            </svg>
-                        </div>
-                        <h4 class="insight-title-text">Quality Focus</h4>
-                        <p class="insight-description">Premium materials and craftsmanship for lasting investment pieces</p>
-                    </div>
-                    <div class="insight-item">
-                        <div class="insight-icon-box">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <path d="M12 6v6l4 2"></path>
-                            </svg>
-                        </div>
-                        <h4 class="insight-title-text">Timely Updates</h4>
-                        <p class="insight-description">New arrivals and exclusive offers tailored to your taste</p>
-                    </div>
-                </div>
-            </section>
-
             <!-- Closing Section -->
             <section class="pdf-closing">
                 <div class="closing-content">
@@ -555,9 +644,58 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js"></script>
     <script src="pdf-generator.js"></script>
-    <script src="email-generator.js?v=9"></script>
-    <script src="newsletter.js?v=14"></script>
+    <script src="email-generator.js?v=18"></script>
+    <script src="newsletter.js?v=18"></script>
+    <script>
+        // Initialize showroom slider
+        $(document).ready(function() {
+            var slider = $('#showroom-slider').lightSlider({
+                item: 1,
+                auto: true,
+                loop: true,
+                pauseOnHover: true,
+                speed: 600,
+                pause: 4000,
+                pager: true,
+                gallery: true,
+                thumbItem: 6,
+                enableTouch: true,
+                enableDrag: true,
+                currentPagerPosition: 'left',
+                adaptiveHeight: false,
+                mode: 'slide',
+                onSliderLoad: function(el) {
+                    // Ensure first slide is visible after load
+                    el.find('.lSSlide').first().addClass('active');
+                    el.find('.lSSlide').first().css({
+                        'display': 'block',
+                        'opacity': '1',
+                        'visibility': 'visible'
+                    });
+                },
+                responsive: [{
+                        breakpoint: 768,
+                        settings: {
+                            item: 1,
+                            slideMove: 1,
+                            thumbItem: 4
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            item: 1,
+                            slideMove: 1,
+                            thumbItem: 3
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
 </body>
 
 </html>
