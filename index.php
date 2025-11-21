@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FCI London - Personalized Selection</title>
-    <link rel="stylesheet" href="styles.css?v=5">
+    <link rel="stylesheet" href="styles/styles.css?v=5">
 </head>
 
 <body>
     <!-- Header -->
     <header class="page-header">
         <div class="header-content">
-            <img src="logo-horizontal-text.png" alt="FCI LONDON" class="header-logo">
+            <img src="images/logo-horizontal-text.png" alt="FCI LONDON" class="header-logo">
             <a href="https://www.fcilondon.co.uk/" target="_blank" class="visit-website-link">Visit Website</a>
         </div>
     </header>
@@ -53,7 +53,7 @@
 
     </div>
 
-    <script src="script.js?v=13"></script>
+    <script src="controller/script.js?v=13"></script>
 </body>
 
 </html>

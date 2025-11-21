@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Load database helper class
-require_once(__DIR__ . "/../../../includes/app.class.php");
+require_once(__DIR__ . "/../../../../includes/app.class.php");
 $app = new app();
 
 // Load PDF generator function
@@ -78,7 +78,7 @@ if (!$postData) {
 // ============================================
 
 // Extract user information with safe defaults
-$firstName = isset($postData['firstName']) ? htmlspecialchars(trim($postData['firstName'])) : '';
+$firstName = isset($postData['fname']) ? htmlspecialchars(trim($postData['fname'])) : '';
 $userEmail = isset($postData['email']) ? htmlspecialchars(trim($postData['email'])) : '';
 $userPhone = isset($postData['phone']) ? htmlspecialchars(trim($postData['phone'])) : '';
 $privacyAgreed = isset($postData['privacyAgreed']) ? (bool)$postData['privacyAgreed'] : false;

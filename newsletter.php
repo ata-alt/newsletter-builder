@@ -8,9 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="newsletter.css?v=6">
-    <link rel="stylesheet" href="newsletter-mobile.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/newsletter.css?v=6">
+    <link rel="stylesheet" href="styles/newsletter-mobile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/css/lightslider.min.css">
     <style>
         /* Showroom Slider Custom Styles */
@@ -105,7 +105,7 @@
         <!-- Document Header -->
         <header class="pdf-header">
             <div class="pdf-header-content">
-                <img src="logo-horizontal-text.png" alt="FCI LONDON" class="pdf-brand-logo">
+                <img src="images/logo-horizontal-text.png" alt="FCI LONDON" class="pdf-brand-logo">
                 <div class="pdf-header-actions">
                     <button class="pdf-action-btn" id="saveEmailBtn">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -126,7 +126,7 @@
             <section class="pdf-hero">
                 <div class="hero-split">
                     <div class="hero-image">
-                        <img src="unnamed2.jpg" alt="Luxury living room" id="heroImage">
+                        <img src="images/unnamed2.jpg" alt="Luxury living room" id="heroImage">
                     </div>
                     <div class="hero-content">
                         <h1 class="hero-title">
@@ -149,17 +149,17 @@
                     <div id="productPreviewContainer">
                         <!-- First Row: 3 images -->
                         <div class="productRow">
-                            <div class="wide"><img src="unnamed2.jpg" alt="Product 1"></div>
-                            <div class="wide"><img src="unnamed2.jpg" alt="Product 2"></div>
-                            <div class="narrow"><img src="unnamed2.jpg" alt="Product 3"></div>
+                            <div class="wide"><img src="images/unnamed2.jpg" alt="Product 1"></div>
+                            <div class="wide"><img src="images/unnamed2.jpg" alt="Product 2"></div>
+                            <div class="narrow"><img src="images/unnamed2.jpg" alt="Product 3"></div>
                         </div>
 
                         <!-- Second Row: 4 images -->
                         <div class="productRow">
-                            <div class="narrow"><img src="unnamed2.jpg" alt="Product 4"></div>
-                            <div class="wide"><img src="unnamed2.jpg" alt="Product 5"></div>
-                            <div class="narrow"><img src="unnamed2.jpg" alt="Product 6"></div>
-                            <div class="narrow"><img src="unnamed2.jpg" alt="Product 7"></div>
+                            <div class="narrow"><img src="images/unnamed2.jpg" alt="Product 4"></div>
+                            <div class="wide"><img src="images/unnamed2.jpg" alt="Product 5"></div>
+                            <div class="narrow"><img src="images/unnamed2.jpg" alt="Product 6"></div>
+                            <div class="narrow"><img src="images/unnamed2.jpg" alt="Product 7"></div>
                         </div>
                     </div>
                 </div>
@@ -237,7 +237,7 @@
                     </h3>
                     <div class="section-split" style="gap: 56px; align-items: flex-start;">
                         <div class="section-image-half">
-                            <img src="unnamed2.jpg" alt="Product image">
+                            <img src="images/unnamed2.jpg" alt="Product image">
                         </div>
                         <div class="section-content-half">
                             <p class="section-text-large">The Italians do many things well, but this is pure poetry in craftsmanship.</p>
@@ -252,7 +252,7 @@
                         <span style="font-size: 2.75rem; font-weight: 300; color: #d0d0d0; margin-right: 16px;">2</span>– Product Name
                     </h3>
                     <div class="section-image-large" style="margin-bottom: 40px;">
-                        <img src="unnamed2.jpg" alt="Product image">
+                        <img src="images/unnamed2.jpg" alt="Product image">
                     </div>
                     <div style="max-width: 900px; margin: 0 auto;">
                         <p class="section-text-large">The Italians do many things well, but this is pure poetry in craftsmanship.</p>
@@ -266,7 +266,7 @@
                 <div class="product-item" style="max-width: 1100px; margin: 0 auto 80px;">
                     <div class="section-split" style="gap: 56px; align-items: flex-start;">
                         <div class="section-image-half" style="flex: 1;">
-                            <img src="unnamed2.jpg" alt="Product image">
+                            <img src="images/unnamed2.jpg" alt="Product image">
                         </div>
                         <div style="flex: 1; padding-top: 0;">
                             <h3 class="product-title-link" style="font-size: 2.25rem; font-weight: 400; color: #000000; margin-bottom: 28px; letter-spacing: -0.005em; font-family: 'Crimson Text', 'Georgia', 'Times New Roman', serif;">
@@ -283,7 +283,7 @@
                 <!-- Product 4 - Full Width Image + Title Below Centered -->
                 <div class="product-item" style="max-width: 1100px; margin: 0 auto;">
                     <div class="section-image-large">
-                        <img src="unnamed2.jpg" alt="Product image">
+                        <img src="images/unnamed2.jpg" alt="Product image">
                     </div>
                     <h3 class="product-title-link" style="font-size: 2.25rem; font-weight: 400; color: #000000;  text-align: center; letter-spacing: -0.005em; font-family: 'Crimson Text', 'Georgia', 'Times New Roman', serif;">
                         <span style="font-size: 2.75rem; font-weight: 300; color: #d0d0d0; margin-right: 16px;">4</span>– Product Name
@@ -299,7 +299,7 @@
                 <!-- Product 5 - Full Width Image + Title Below -->
                 <div class="product-item" style="max-width: 1100px; margin: 0 auto 80px;">
                     <div class="section-image-large">
-                        <img src="unnamed2.jpg" alt="Product image">
+                        <img src="images/unnamed2.jpg" alt="Product image">
                     </div>
                     <h3 class="product-title-link" style="font-size: 2.25rem; font-weight: 400; color: #000000;  text-align: center; letter-spacing: -0.005em; font-family: 'Crimson Text', 'Georgia', 'Times New Roman', serif;">
                         <span style="font-size: 2.75rem; font-weight: 300; color: #d0d0d0; margin-right: 16px;">5</span>– Product Name
@@ -319,7 +319,7 @@
                     </h3>
                     <div class="section-split" style="display: flex; gap: 60px; align-items: flex-start; flex-wrap: wrap;">
                         <div class="section-image-half" style="flex: 1; min-width: 320px; max-width: 50%; height: auto; overflow: hidden; background-color: #ffffff;">
-                            <img src="unnamed2.jpg" alt="Product image">
+                            <img src="images/unnamed2.jpg" alt="Product image">
                         </div>
                         <div class="section-content-half" style="flex: 1; min-width: 300px;">
                             <p class="section-text-large">The Italians do many things well, but this is pure poetry in craftsmanship.</p>
@@ -336,7 +336,7 @@
                         <span style="font-size: 2.75rem; font-weight: 300; color: #d0d0d0; margin-right: 16px;">7</span>– Product Name
                     </h3>
                     <div class="section-image-large" style="margin-bottom: 40px;">
-                        <img src="unnamed2.jpg" alt="Product image">
+                        <img src="images/unnamed2.jpg" alt="Product image">
                     </div>
                     <div style="max-width: 900px; margin: 0 auto;">
                         <p class="section-text-large">The Italians do many things well, but this is pure poetry in craftsmanship.</p>
@@ -364,7 +364,7 @@
                         <div style="margin-bottom: 60px;">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
                                 <h4 style="font-size: 1.75rem; font-weight: 400; color: #000000; margin: 0;">1 - Gamma & Dandy</h4>
-                                <img src="unnamed2.jpg" alt="Gamma & Dandy Logo" style="height: 40px; object-fit: contain;">
+                                <img src="images/unnamed2.jpg" alt="Gamma & Dandy Logo" style="height: 40px; object-fit: contain;">
                             </div>
                             <p style="font-size: 1.125rem; line-height: 1.9; color: #333333; margin-bottom: 20px;">
                                 In the forty years I've been specifying furniture, Gamma has never once disappointed. They're the Hermès of the sofa world: uncompromising on quality, innovative without being gimmicky, and their leather processing is genuinely unmatched.
@@ -381,7 +381,7 @@
                         <div style="margin-bottom: 60px;">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
                                 <h4 style="font-size: 1.75rem; font-weight: 400; color: #000000; margin: 0;">2 - Ditre Italia</h4>
-                                <img src="unnamed2.jpg" alt="Ditre Italia Logo" style="height: 40px; object-fit: contain;">
+                                <img src="images/unnamed2.jpg" alt="Ditre Italia Logo" style="height: 40px; object-fit: contain;">
                             </div>
                             <p style="font-size: 1.125rem; line-height: 1.9; color: #333333; margin-bottom: 20px;">
                                 The thinking person's choice. While everyone else is chasing the latest trends, Ditre quietly creates exceptional furniture that works brilliantly forever. They're particularly clever with their modular systems. The engineering is impeccable.
@@ -646,9 +646,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js"></script>
-    <script src="pdf-generator.js"></script>
-    <script src="email-generator.js?v=18"></script>
-    <script src="newsletter.js?v=18"></script>
+    <script src="controller/email-generator.js?v=18"></script>
+    <script src="controller/newsletter.js?v=18"></script>
     <script>
         // Initialize showroom slider
         $(document).ready(function() {
