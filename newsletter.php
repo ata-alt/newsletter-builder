@@ -611,18 +611,19 @@
             <span class="modal-close">&times;</span>
             <h3 class="modal-title">Save & Email Your Selection</h3>
             <p class="modal-description">Enter your details to receive this personalized selection</p>
-            <form id="emailForm" class="email-form">
+            <!-- webform -->
+            <form id="personalised-newsletter" class="webform">
                 <div class="form-field">
-                    <label for="firstNameInput" class="form-label">First Name <span class="required-indicator">*</span></label>
-                    <input type="text" id="firstNameInput" class="email-input" placeholder="First Name" required>
+                    <label for="fname" class="form-label">First Name <span class="required-indicator">*</span></label>
+                    <input type="text" id="fname" name="fname" class="email-input" placeholder="First Name" required>
                 </div>
                 <div class="form-field">
-                    <label for="emailInput" class="form-label">Email <span class="required-indicator">*</span></label>
-                    <input type="email" id="emailInput" class="email-input" placeholder="Email" required>
+                    <label for="email" class="form-label">Email <span class="required-indicator">*</span></label>
+                    <input type="email" id="email" name="email" class="email-input" placeholder="Email" required>
                 </div>
                 <div class="form-field">
-                    <label for="phoneInput" class="form-label">Phone Number <span class="required-indicator">*</span></label>
-                    <input type="tel" id="phoneInput" class="email-input" placeholder="Phone Number" required>
+                    <label for="phone" class="form-label">Phone Number <span class="required-indicator">*</span></label>
+                    <input type="tel" id="phone" name="phone" class="email-input" placeholder="Phone Number" required>
                 </div>
                 <div class="form-field checkbox-field">
                     <label class="checkbox-label">
@@ -635,7 +636,6 @@
             <div id="emailStatus" class="email-status"></div>
         </div>
     </div>
-
     <!-- Image Lightbox Modal -->
     <div id="imageLightbox" class="lightbox">
         <span class="lightbox-close">&times;</span>

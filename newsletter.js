@@ -24,10 +24,10 @@
 const saveEmailBtn = document.getElementById('saveEmailBtn');
 const emailModal = document.getElementById('emailModal');
 const modalClose = document.querySelector('.modal-close');
-const emailForm = document.getElementById('emailForm');
-const firstNameInput = document.getElementById('firstNameInput');
-const emailInput = document.getElementById('emailInput');
-const phoneInput = document.getElementById('phoneInput');
+const emailForm = document.getElementById('personalised-newsletter');
+const firstNameInput = document.getElementById('fname');
+const emailInput = document.getElementById('email');
+const phoneInput = document.getElementById('phone');
 const privacyCheckbox = document.getElementById('privacyCheckbox');
 const emailStatus = document.getElementById('emailStatus');
 
