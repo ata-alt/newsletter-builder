@@ -99,18 +99,18 @@ if (!empty($heroSection)) {
                     </tr>
       <tr>
         <td style="padding: 0;">
-          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" class="stack-mobile">
             <tr>';
 
     if ($heroImageUrl) {
         $emailContent .= '
-              <td width="45%" style="padding: 0; vertical-align: top;">
+              <td width="45%" class="stack-mobile" style="padding: 0; vertical-align: top;">
                 <img src="' . htmlspecialchars($heroImageUrl) . '" alt="Luxury living room" style="width: 100%; max-width: 100%; height: auto; display: block; border: 0;" />
               </td>';
     }
 
     $emailContent .= '
-              <td width="' . ($heroImageUrl ? '55%' : '100%') . '" style="padding: 25px 30px 25px 40px; vertical-align: middle; background-color: #ffffff;">
+              <td width="' . ($heroImageUrl ? '55%' : '100%') . '" class="stack-mobile mobile-padding" style="padding: 25px 30px 25px 40px; vertical-align: middle; background-color: #ffffff;">
                 <h1 style="margin: 0 0 16px; font-size: 2.5rem; font-weight: 400; line-height: 1.15; color: #000000; letter-spacing: -0.015em; font-family: \'Crimson Text\', Georgia, \'Times New Roman\', serif;">' . $heroTitleText . '</h1>
                 <p style="margin: 0; font-size: 1.125rem; font-weight: 400; color: #2c2c2c; line-height: 1.6; font-family: \'Crimson Text\', Georgia, \'Times New Roman\', serif;">' . htmlspecialchars($heroSubtitle) . '</p>
               </td>
@@ -146,34 +146,34 @@ if (!empty($coverSection)) {
         // Only generate HTML if we have at least 7 images
         if (count($allImages) >= 7) {
             $previewGridHTML = '
-   <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 1000px; margin: 48px auto 0;">
+   <table width="100%" cellpadding="0" cellspacing="0" border="0" class="stack-mobile" style="max-width: 1000px; margin: 48px auto 0;">
   <!-- First Row: 2 wide + 1 narrow (40% + 40% + 20%) -->
   <tr>
-    <td style="width: 40%; padding: 0 6px 0 0;">
+    <td class="stack-mobile" style="width: 40%; padding: 0 6px 0 0;">
       <img src="' . $allImages[0]['url'] . '" alt="' . $allImages[0]['alt'] . '" style="width: 100%; height: 150px; object-fit: cover; display: block; border: 0;" />
     </td>
-    <td style="width: 40%; padding: 0 6px;">
+    <td class="stack-mobile" style="width: 40%; padding: 0 6px;">
       <img src="' . $allImages[1]['url'] . '" alt="' . $allImages[1]['alt'] . '" style="width: 100%; height: 150px; object-fit: cover; display: block; border: 0;" />
     </td>
-    <td style="width: 20%; padding: 0 0 0 6px;">
+    <td class="stack-mobile" style="width: 20%; padding: 0 0 0 6px;">
       <img src="' . $allImages[2]['url'] . '" alt="' . $allImages[2]['alt'] . '" style="width: 100%; height: 150px; object-fit: cover; display: block; border: 0;" />
     </td>
   </tr>
   <!-- Second Row: 1 narrow + 1 wide + 2 narrow (20% + 40% + 20% + 20%) - Using nested table for Gmail -->
   <tr>
     <td colspan="3" style="padding: 6px 0 0 0;">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" class="stack-mobile">
         <tr>
-          <td style="width: 20%; padding: 0 6px 0 0;">
+          <td class="stack-mobile" style="width: 20%; padding: 0 6px 0 0;">
             <img src="' . $allImages[3]['url'] . '" alt="' . $allImages[3]['alt'] . '" style="width: 100%; height: 150px; object-fit: cover; display: block; border: 0;" />
           </td>
-          <td style="width: 40%; padding: 0 6px;">
+          <td class="stack-mobile" style="width: 40%; padding: 0 6px;">
             <img src="' . $allImages[4]['url'] . '" alt="' . $allImages[4]['alt'] . '" style="width: 100%; height: 150px; object-fit: cover; display: block; border: 0;" />
           </td>
-          <td style="width: 20%; padding: 0 6px;">
+          <td class="stack-mobile" style="width: 20%; padding: 0 6px;">
             <img src="' . $allImages[5]['url'] . '" alt="' . $allImages[5]['alt'] . '" style="width: 100%; height: 150px; object-fit: cover; display: block; border: 0;" />
           </td>
-          <td style="width: 20%; padding: 0 0 0 6px;">
+          <td class="stack-mobile" style="width: 20%; padding: 0 0 0 6px;">
             <img src="' . $allImages[6]['url'] . '" alt="' . $allImages[6]['alt'] . '" style="width: 100%; height: 150px; object-fit: cover; display: block; border: 0;" />
           </td>
         </tr>
@@ -187,7 +187,7 @@ if (!empty($coverSection)) {
     $emailContent .= '
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff;">
       <tr>
-        <td style="padding: 80px 60px 60px;">
+        <td class="mobile-padding" style="padding: 80px 60px 60px;">
           <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 650px; margin: 0 auto;">
             <tr>
               <td style="text-align: center;">
@@ -234,7 +234,7 @@ if (!empty($tipsSection)) {
         $emailContent .= '
       <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #fafafa;">
         <tr>
-          <td style="padding: 70px 60px;">
+          <td class="mobile-padding" style="padding: 70px 60px;">
             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 800px; margin: 0 auto;">
               <tr>
                 <td>';
@@ -316,9 +316,9 @@ if (!empty($productsSection)) {
                 </tr>
                 <tr>
                   <td>
-                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0" class="stack-mobile">
                       <tr>
-                        <td width="45%" style="padding-right: 28px; vertical-align: top;">';
+                        <td width="45%" class="stack-mobile" style="padding-right: 28px; vertical-align: top;">';
 
                 if ($imageUrl) {
                     $productsHTML .= '<img src="' . htmlspecialchars($imageUrl) . '" alt="' . htmlspecialchars($imageAlt) . '" style="width: 100%; max-width: 400px; height: auto; display: block; border: 0;" />';
@@ -326,7 +326,7 @@ if (!empty($productsSection)) {
 
                 $productsHTML .= '
                         </td>
-                        <td width="55%" style="padding-left: 28px; vertical-align: top;">';
+                        <td width="55%" class="stack-mobile mobile-padding" style="padding-left: 28px; vertical-align: top;">';
 
                 if ($sectionTextLarge) {
                     $productsHTML .= '<p style="margin: 0 0 24px; font-size: 1.375rem; line-height: 1.5; color: #000000; font-weight: 400; font-family: \'Crimson Text\', Georgia, \'Times New Roman\', serif;">' . htmlspecialchars($sectionTextLarge) . '</p>';
@@ -398,9 +398,9 @@ if (!empty($productsSection)) {
         <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: ' . $marginBottom . '; page-break-inside: avoid;">
           <tr>
             <td style="padding: 0;">
-              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 1100px; margin: 0 auto;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" class="stack-mobile" style="max-width: 1100px; margin: 0 auto;">
                 <tr>
-                  <td width="45%" style="padding-right: 28px; vertical-align: top;">';
+                  <td width="45%" class="stack-mobile" style="padding-right: 28px; vertical-align: top;">';
 
                 if ($imageUrl) {
                     $productsHTML .= '<img src="' . htmlspecialchars($imageUrl) . '" alt="' . htmlspecialchars($imageAlt) . '" style="width: 100%; max-width: 400px; height: auto; display: block; border: 0;" />';
@@ -408,7 +408,7 @@ if (!empty($productsSection)) {
 
                 $productsHTML .= '
                   </td>
-                  <td width="55%" style="padding-left: 28px; vertical-align: top;">
+                  <td width="55%" class="stack-mobile mobile-padding" style="padding-left: 28px; vertical-align: top;">
                     <h3 style="margin: 0 0 28px; font-size: 2.25rem; font-weight: 400; color: #000000; letter-spacing: -0.005em; font-family: \'Crimson Text\', Georgia, \'Times New Roman\', serif;">' . $titleHTMLFinal . '</h3>';
 
                 if ($sectionTextLarge) {
@@ -479,7 +479,7 @@ if (!empty($productsSection)) {
     $emailContent .= '
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff;">
       <tr>
-        <td style="padding: 70px 60px;">
+        <td class="mobile-padding" style="padding: 70px 60px;">
           <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 800px; margin: 0 auto; text-align: center;">
             <tr>
               <td style="padding: 0 0 10px;">';
@@ -534,14 +534,14 @@ if (!empty($brandSpotlightSection)) {
             if ($brandTitle) {
                 $brandsHTML .= '
           <div style="margin-bottom: 60px; page-break-inside: avoid;">
-            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 24px;">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" class="stack-mobile" style="margin-bottom: 24px;">
               <tr>
-                <td style="padding: 0;">
+                <td class="stack-mobile" style="padding: 0;">
                   <h4 style="margin: 0; font-size: 1.75rem; font-weight: 400; color: #000000; font-family: \'Crimson Text\', Georgia, \'Times New Roman\', serif;">' . htmlspecialchars($brandTitle) . '</h4>
                 </td>';
 
                 if ($brandLogoUrl) {
-                    $brandsHTML .= '<td align="right" style="padding: 0;">
+                    $brandsHTML .= '<td class="stack-mobile" align="right" style="padding: 0;">
                   <img src="' . htmlspecialchars($brandLogoUrl) . '" alt="Brand Logo" style="height: 40px; object-fit: contain; border: 0;" />
                 </td>';
                 }
@@ -584,7 +584,7 @@ if (!empty($brandSpotlightSection)) {
         $emailContent .= '
       <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff;">
         <tr>
-          <td style="padding: 70px 60px;">
+          <td class="mobile-padding" style="padding: 70px 60px;">
             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 800px; margin: 0 auto;">
               <tr>
                 <td style="padding: 0 0 24px; text-align: center;">
@@ -654,7 +654,7 @@ if (!empty($showroomStrategySection)) {
                 if ($title && $description) {
                     $padding = $colIndex === 0 ? '0 12px 24px 0' : '0 0 24px 12px';
                     $rowHTML .= '
-                <td width="50%" style="padding: ' . $padding . '; vertical-align: top;">
+                <td width="50%" class="stack-mobile mobile-padding" style="padding: ' . $padding . '; vertical-align: top;">
                   <div style="background-color: #ffffff; padding: 24px; border: 1px solid #e0e0e0; page-break-inside: avoid;">
                     <p style="margin: 0 0 8px; font-size: 1rem; font-weight: 400; color: #000000; font-family: \'Crimson Text\', Georgia, \'Times New Roman\', serif;">' . htmlspecialchars($title) . '</p>
                     <p style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: #666666; font-family: \'Crimson Text\', Georgia, \'Times New Roman\', serif;">' . htmlspecialchars($description) . '</p>
@@ -671,7 +671,7 @@ if (!empty($showroomStrategySection)) {
         $emailContent .= '
       <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #fafafa;">
         <tr>
-          <td style="padding: 70px 60px;">
+          <td class="mobile-padding" style="padding: 70px 60px;">
             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 800px; margin: 0 auto;">
               <tr>
                 <td style="padding: 0 0 24px; text-align: center;">
@@ -704,7 +704,7 @@ if (!empty($showroomStrategySection)) {
               <tr>
                 <td>
                   <h4 style="margin: 0 0 32px; font-size: 1.75rem; font-weight: 400; color: #000000; font-family: \'Crimson Text\', Georgia, \'Times New Roman\', serif;">What to Bring to the Showroom</h4>
-                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <table width="100%" cellpadding="0" cellspacing="0" border="0" class="stack-mobile">
                     ' . $whatToBringHTML . '
                   </table>
                 </td>
@@ -762,7 +762,7 @@ if (!empty($finalThoughtsSection)) {
     $emailContent .= '
       <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff;">
         <tr>
-          <td style="padding: 70px 60px;">
+          <td class="mobile-padding" style="padding: 70px 60px;">
             <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 800px; margin: 0 auto;">
               <tr>
                 <td style="padding: 0 0 24px; text-align: center;">
@@ -868,7 +868,7 @@ if (!empty($closingSection)) {
     $emailContent .= '
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #fafafa; border-bottom: 2px solid #000000;">
       <tr>
-        <td style="padding: 40px 30px; text-align: center;">
+        <td class="mobile-padding" style="padding: 40px 30px; text-align: center;">
           <h3 style="margin: 0 0 16px; font-size: 22px; font-weight: 400; color: #000000; letter-spacing: -0.01em; font-family: \'Crimson Text\', Georgia, \'Times New Roman\', serif;">' . htmlspecialchars($closingTitle) . '</h3>
           <p style="margin: 0 0 32px; font-size: 15px; line-height: 1.7; color: #333333; font-family: \'Crimson Text\', Georgia, \'Times New Roman\', serif;">' . htmlspecialchars($closingText) . '</p>
           <table cellpadding="0" cellspacing="0" border="0" align="center">
@@ -896,37 +896,37 @@ if (!empty($closingSection)) {
     
     <style type="text/css">
         /* ===== PDF PAGE BREAK CONTROLS ===== */
-        
+
         /* Force new page before major sections */
         .page-break-before {
             page-break-before: always;
             break-before: always;
         }
-        
+
         /* Prevent breaking inside sections */
         .keep-together {
             page-break-inside: avoid;
             break-inside: avoid;
         }
-        
+
         /* Keep tips section items together */
         div[style*="margin-bottom: 40px"] {
             page-break-inside: avoid;
             break-inside: avoid;
         }
-        
+
         /* Keep brand items together */
         div[style*="margin-bottom: 60px"] {
             page-break-inside: avoid;
             break-inside: avoid;
         }
-        
+
         /* Keep Q&A items together */
         div[style*="margin-bottom: 32px"] {
             page-break-inside: avoid;
             break-inside: avoid;
         }
-        
+
         /* Prevent heading orphans */
         h1, h2, h3, h4, h5, h6 {
             page-break-after: avoid;
@@ -934,7 +934,7 @@ if (!empty($closingSection)) {
             page-break-inside: avoid;
             break-inside: avoid;
         }
-        
+
         /* Keep heading with next content */
         h2 + table,
         h3 + table,
@@ -942,40 +942,87 @@ if (!empty($closingSection)) {
             page-break-before: avoid;
             break-before: avoid;
         }
-        
+
         /* Prevent widows and orphans */
         p {
             orphans: 3;
             widows: 3;
         }
-        
+
         /* Keep images with their content */
         img {
             page-break-inside: avoid;
             break-inside: avoid;
         }
-        
+
         /* Prevent breaking inside lists */
         ul, ol, li {
             page-break-inside: avoid;
             break-inside: avoid;
         }
-        
+
         /* Keep product items together */
         table[style*="margin-bottom"] {
             page-break-inside: avoid;
             break-inside: avoid;
         }
-        
+
         /* Better spacing for PDF */
         @media print {
             body {
                 line-height: 1.6;
             }
-            
+
             img {
                 max-width: 100%;
                 height: auto;
+            }
+        }
+
+        /* ===== MOBILE RESPONSIVE STYLES ===== */
+        @media only screen and (max-width: 600px) {
+            /* Force tables to stack vertically */
+            table[class="stack-mobile"] {
+                width: 100% !important;
+            }
+
+            td[class="stack-mobile"] {
+                display: block !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            /* Reset padding for mobile */
+            td[class="mobile-padding"] {
+                padding: 20px !important;
+            }
+
+            /* Adjust font sizes for mobile */
+            h1 {
+                font-size: 1.75rem !important;
+            }
+
+            h2 {
+                font-size: 1.5rem !important;
+            }
+
+            h3 {
+                font-size: 1.375rem !important;
+            }
+
+            h4 {
+                font-size: 1.125rem !important;
+            }
+
+            /* Full width images on mobile */
+            img {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+
+            /* Hide empty space cells on mobile */
+            td[class="hide-mobile"] {
+                display: none !important;
             }
         }
     </style>
