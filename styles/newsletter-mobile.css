@@ -1,5 +1,37 @@
 /* ===== MOBILE RESPONSIVE IMPROVEMENTS ===== */
 
+/* Overflow Protection for All Mobile Devices */
+@media (max-width: 768px) {
+
+    /* Prevent horizontal scrolling */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Ensure images don't overflow */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Prevent text overflow */
+    * {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Ensure containers don't exceed viewport */
+    .pdf-section,
+    .pdf-cover,
+    .pdf-insights,
+    .pdf-closing,
+    .section-split,
+    .hero-split {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
 /* Base Mobile Styles (max-width: 768px) */
 @media (max-width: 768px) {
     
@@ -22,18 +54,34 @@
     /* Product Preview Container - Mobile Grid */
     #productPreviewContainer {
         gap: 8px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 100%;
+        margin: 0 auto;
+        justify-items: center;
     }
-    
+
     .productRow:first-child,
     .productRow:last-child {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+        display: contents;
     }
-    
+
     .productRow > div {
         height: 150px;
+        width: 100%;
     }
-    
+
+    /* Center the last (7th) image */
+    .productRow:last-child > div:last-child {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .productRow:last-child > div:last-child > * {
+        max-width: 50%;
+    }
+
     /* Tips Section Mobile */
     .pdf-section.alternate > div {
         padding: 0;
@@ -209,74 +257,1017 @@
     #showroom-slider {
         min-height: 250px !important;
     }
+
+    /* Showroom Strategy - Reduce spacing between slider and paragraph */
+    .pdf-section.alternate > div:nth-child(2) {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) * {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .container {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideWrapper {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideOuter {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSPager.lSGallery {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) #showroom-slider {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(3) {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child > p:first-child {
+        margin-top: 0 !important;
+        margin-bottom: 32px !important;
+    }
 }
 
-/* Extra Small Mobile (max-width: 480px) */
+/* Small Mobile (max-width: 480px) */
 @media (max-width: 480px) {
-    
+
+    /* Reduce overall padding for more space */
+    .pdf-section,
+    .pdf-cover,
+    .pdf-insights,
+    .pdf-closing {
+        padding: 40px 16px !important;
+    }
+
     .pdf-title {
         font-size: 2rem;
     }
-    
+
     .hero-title {
         font-size: 2rem;
     }
-    
+
     .product-title-link {
         font-size: 1.5rem !important;
     }
-    
+
     .product-title-link span {
         font-size: 1.75rem !important;
     }
-    
+
     #tipsThemeTitle {
         font-size: 1.5rem !important;
         line-height: 1.3 !important;
     }
-    
+
     .pdf-section h3 {
         font-size: 1.75rem !important;
     }
-    
+
     .productRow > div {
         height: 120px;
+        width: 100%;
     }
-    
+
+    /* Product Preview Container Centering */
+    #productPreviewContainer {
+        justify-items: center;
+        margin: 0 auto;
+    }
+
+    /* Center the last (7th) image */
+    .productRow:last-child > div:last-child {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .productRow:last-child > div:last-child > * {
+        max-width: 50%;
+    }
+
+    /* Reduce spacing between elements */
+    .product-item {
+        margin-bottom: 40px !important;
+    }
+
+    .section-text-large {
+        font-size: 1.0625rem !important;
+        margin-bottom: 12px;
+    }
+
     /* Modal Mobile */
     .modal-content {
         padding: 24px 16px;
+        margin: 10px;
+        max-width: calc(100% - 20px);
     }
-    
+
     .modal-title {
         font-size: 1.375rem;
     }
-    
+
     .email-input {
         font-size: 0.9375rem;
         padding: 14px 16px;
     }
+
+    /* Showroom Strategy - Reduce spacing between slider and paragraph */
+    .pdf-section.alternate > div:nth-child(2) {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) * {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .container {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideWrapper {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideOuter {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSPager.lSGallery {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) #showroom-slider {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(3) {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child > p:first-child {
+        margin-top: 0 !important;
+        margin-bottom: 28px !important;
+    }
 }
 
-/* Landscape Mobile (max-height: 500px and orientation: landscape) */
+/* Medium-Small Mobile (max-width: 414px) - iPhone Plus/Pro Max */
+@media (max-width: 414px) {
+
+    /* Optimize padding for medium-small screens */
+    .pdf-section,
+    .pdf-cover,
+    .pdf-insights,
+    .pdf-closing {
+        padding: 36px 14px !important;
+    }
+
+    .pdf-cover-text h2 {
+        font-size: 1.875rem !important;
+    }
+
+    .product-title-link {
+        font-size: 1.4375rem !important;
+    }
+
+    .product-title-link span {
+        font-size: 1.6875rem !important;
+    }
+
+    #tipsThemeTitle {
+        font-size: 1.4375rem !important;
+    }
+
+    .pdf-section h3 {
+        font-size: 1.6875rem !important;
+    }
+
+    /* Tighter grid spacing */
+    #productPreviewContainer {
+        gap: 7px;
+        justify-items: center;
+        margin: 0 auto;
+    }
+
+    .productRow > div {
+        height: 115px;
+        width: 100%;
+    }
+
+    /* Center the last (7th) image */
+    .productRow:last-child > div:last-child {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .productRow:last-child > div:last-child > * {
+        max-width: 50%;
+    }
+
+    /* Optimize content spacing */
+    .product-item {
+        margin-bottom: 38px !important;
+    }
+
+    #tipsContent > div {
+        margin-bottom: 30px !important;
+    }
+
+    /* Modal sizing */
+    .modal-content {
+        padding: 22px 14px;
+        margin: 9px;
+        max-width: calc(100% - 18px);
+    }
+
+    .modal-title {
+        font-size: 1.3125rem;
+    }
+
+    /* Showroom Strategy - Reduce spacing between slider and paragraph */
+    .pdf-section.alternate > div:nth-child(2) {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) * {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .container {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideWrapper {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideOuter {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSPager.lSGallery {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) #showroom-slider {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(3) {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child > p:first-child {
+        margin-top: 0 !important;
+        margin-bottom: 24px !important;
+    }
+}
+
+/* Extra Small Mobile (max-width: 375px) - iPhone SE/Small phones */
+@media (max-width: 375px) {
+
+    /* Further reduce padding */
+    .pdf-section,
+    .pdf-cover,
+    .pdf-insights,
+    .pdf-closing {
+        padding: 32px 12px !important;
+    }
+
+    .pdf-cover {
+        padding: 40px 12px 32px !important;
+    }
+
+    .pdf-cover-text h2 {
+        font-size: 1.75rem !important;
+        margin-bottom: 20px !important;
+    }
+
+    .pdf-intro {
+        font-size: 0.9375rem !important;
+        margin-bottom: 28px;
+    }
+
+    .pdf-title {
+        font-size: 1.75rem;
+    }
+
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    /* Product preview grid - tighter spacing */
+    #productPreviewContainer {
+        gap: 6px;
+        justify-items: center;
+        margin: 0 auto;
+    }
+
+    .productRow > div {
+        height: 110px;
+        width: 100%;
+    }
+
+    /* Center the last (7th) image */
+    .productRow:last-child > div:last-child {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .productRow:last-child > div:last-child > * {
+        max-width: 50%;
+    }
+
+    /* Typography adjustments */
+    .product-title-link {
+        font-size: 1.375rem !important;
+        margin-bottom: 20px !important;
+    }
+
+    .product-title-link span {
+        font-size: 1.625rem !important;
+    }
+
+    #tipsThemeTitle {
+        font-size: 1.375rem !important;
+    }
+
+    .pdf-section h3 {
+        font-size: 1.625rem !important;
+    }
+
+    .pdf-section h4 {
+        font-size: 1.375rem !important;
+    }
+
+    .section-text-large {
+        font-size: 1rem !important;
+    }
+
+    .section-text,
+    .pdf-section p {
+        font-size: 0.9375rem !important;
+    }
+
+    /* Tighter spacing */
+    .product-item {
+        margin-bottom: 36px !important;
+    }
+
+    #tipsContent > div {
+        margin-bottom: 28px !important;
+    }
+
+    /* Showroom grid optimization */
+    .pdf-section.alternate > div:last-child > div:last-child > div > div {
+        padding: 16px !important;
+    }
+
+    .pdf-section.alternate > div:last-child > div:last-child > div > div p:first-child {
+        font-size: 0.875rem !important;
+    }
+
+    .pdf-section.alternate > div:last-child > div:last-child > div > div p:last-child {
+        font-size: 0.8125rem !important;
+    }
+
+    /* Brand logo sizing */
+    .pdf-section > div > div > div > div img {
+        height: 28px !important;
+    }
+
+    /* Blog list optimization */
+    #blogArticlesList li,
+    .pdf-section ul li {
+        font-size: 0.875rem !important;
+        padding-left: 12px !important;
+    }
+
+    /* Final secret box */
+    .pdf-section > div > div > div[style*="background-color: #fafafa"] {
+        padding: 20px !important;
+        margin-top: 28px !important;
+    }
+
+    /* Modal adjustments */
+    .modal-content {
+        padding: 20px 12px;
+        margin: 8px;
+        max-width: calc(100% - 16px);
+    }
+
+    .modal-title {
+        font-size: 1.25rem;
+    }
+
+    /* Slider height */
+    #showroom-slider {
+        min-height: 220px !important;
+    }
+
+    /* Showroom Strategy - Reduce spacing between slider and paragraph */
+    .pdf-section.alternate > div:nth-child(2) {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) * {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .container {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideWrapper {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideOuter {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSPager.lSGallery {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) #showroom-slider {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(3) {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child > p:first-child {
+        margin-top: 0 !important;
+        margin-bottom: 20px !important;
+    }
+}
+
+/* Very Small Mobile (max-width: 320px) - Older/Smaller devices */
+@media (max-width: 320px) {
+
+    /* Minimal padding for maximum content space */
+    .pdf-section,
+    .pdf-cover,
+    .pdf-insights,
+    .pdf-closing {
+        padding: 28px 10px !important;
+    }
+
+    .pdf-cover {
+        padding: 36px 10px 28px !important;
+    }
+
+    .pdf-cover-text h2 {
+        font-size: 1.5rem !important;
+        margin-bottom: 16px !important;
+    }
+
+    .pdf-intro {
+        font-size: 0.875rem !important;
+        margin-bottom: 24px;
+    }
+
+    /* Compact typography */
+    .pdf-title {
+        font-size: 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    /* Product grid - Keep 2 columns even on very small screens for consistency */
+    #productPreviewContainer {
+        justify-items: center;
+        margin: 0 auto;
+    }
+
+    .productRow > div {
+        height: 100px;
+        width: 100%;
+    }
+
+    /* Center the last (7th) image */
+    .productRow:last-child > div:last-child {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .productRow:last-child > div:last-child > * {
+        max-width: 50%;
+    }
+
+    /* Compact all headings */
+    .product-title-link {
+        font-size: 1.25rem !important;
+        margin-bottom: 16px !important;
+    }
+
+    .product-title-link span {
+        font-size: 1.5rem !important;
+    }
+
+    #tipsThemeTitle {
+        font-size: 1.25rem !important;
+        margin-bottom: 24px !important;
+    }
+
+    .pdf-section h3 {
+        font-size: 1.5rem !important;
+        margin-bottom: 16px !important;
+    }
+
+    .pdf-section h4,
+    .pdf-section.alternate h4 {
+        font-size: 1.25rem !important;
+        margin-bottom: 16px !important;
+    }
+
+    .pdf-section h5 {
+        font-size: 1.0625rem !important;
+    }
+
+    #tipsContent h4 {
+        font-size: 1.0625rem !important;
+    }
+
+    /* Body text */
+    .section-text-large {
+        font-size: 0.9375rem !important;
+        margin-bottom: 10px;
+    }
+
+    .section-text,
+    .pdf-section p,
+    #tipsContent p {
+        font-size: 0.875rem !important;
+        line-height: 1.6 !important;
+    }
+
+    /* Minimal spacing */
+    .product-item {
+        margin-bottom: 32px !important;
+    }
+
+    #tipsContent > div {
+        margin-bottom: 24px !important;
+    }
+
+    #tipsIntro {
+        margin-bottom: 28px !important;
+    }
+
+    /* Compact boxes */
+    .pdf-section.alternate > div:last-child > div:last-child > div {
+        gap: 12px;
+    }
+
+    .pdf-section.alternate > div:last-child > div:last-child > div > div {
+        padding: 14px !important;
+    }
+
+    .pdf-section.alternate > div:last-child > div:last-child > div > div p:first-child {
+        font-size: 0.8125rem !important;
+    }
+
+    .pdf-section.alternate > div:last-child > div:last-child > div > div p:last-child {
+        font-size: 0.75rem !important;
+    }
+
+    /* Brand logos */
+    .pdf-section > div > div > div > div {
+        gap: 12px;
+    }
+
+    .pdf-section > div > div > div > div img {
+        height: 24px !important;
+    }
+
+    /* Lists */
+    #blogArticlesList li,
+    .pdf-section ul li {
+        font-size: 0.8125rem !important;
+        padding-left: 10px !important;
+        line-height: 1.7 !important;
+    }
+
+    /* Final secret box */
+    .pdf-section > div > div > div[style*="background-color: #fafafa"] {
+        padding: 16px !important;
+        margin-top: 24px !important;
+    }
+
+    /* Questions section */
+    .pdf-section.alternate > div > div > div {
+        margin-bottom: 20px !important;
+    }
+
+    .pdf-section.alternate > div > div > div p:first-child {
+        font-size: 1rem !important;
+    }
+
+    .pdf-section.alternate > div > div > div p:last-child {
+        font-size: 0.875rem !important;
+        padding-left: 12px !important;
+    }
+
+    /* Signature section */
+    .pdf-section > div > div[style*="text-align: center"] p {
+        font-size: 1rem !important;
+    }
+
+    /* Modal - full width approach */
+    .modal-content {
+        padding: 18px 10px;
+        margin: 5px;
+        max-width: calc(100% - 10px);
+        border-radius: 8px;
+    }
+
+    .modal-title {
+        font-size: 1.125rem;
+        margin-bottom: 12px;
+    }
+
+    .email-input {
+        font-size: 0.875rem;
+        padding: 12px 14px;
+    }
+
+    .email-submit {
+        padding: 12px 20px;
+        font-size: 0.875rem;
+    }
+
+    /* Slider - compact height */
+    #showroom-slider {
+        min-height: 200px !important;
+    }
+
+    /* Touch targets remain accessible */
+    .pdf-action-btn,
+    .email-submit,
+    .appointment-btn {
+        min-height: 44px;
+        font-size: 0.9375rem;
+    }
+
+    /* Showroom Strategy - Reduce spacing between slider and paragraph */
+    .pdf-section.alternate > div:nth-child(2) {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) * {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .container {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideWrapper {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideOuter {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSPager.lSGallery {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) #showroom-slider {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(3) {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child > p:first-child {
+        margin-top: 0 !important;
+        margin-bottom: 16px !important;
+    }
+}
+
+/* Landscape Mobile (orientation: landscape) */
 @media (max-height: 500px) and (orientation: landscape) {
-    
+
+    /* Optimize vertical spacing in landscape */
+    .pdf-section,
+    .pdf-cover,
+    .pdf-insights,
+    .pdf-closing {
+        padding: 32px 20px !important;
+    }
+
     .hero-split {
         min-height: auto;
     }
-    
+
     .hero-image {
         min-height: 250px;
     }
-    
+
     #showroom-slider {
         min-height: 200px !important;
+    }
+
+    /* Reduce vertical margins */
+    .product-item {
+        margin-bottom: 30px !important;
+    }
+
+    #tipsContent > div {
+        margin-bottom: 20px !important;
+    }
+
+    .pdf-cover-text h2 {
+        margin-bottom: 16px !important;
+    }
+
+    .pdf-intro {
+        margin-bottom: 24px !important;
+    }
+
+    /* Showroom Strategy - Reduce spacing for landscape */
+    .pdf-section.alternate > div:nth-child(2) {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) * {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .container {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideWrapper {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideOuter {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSPager.lSGallery {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) #showroom-slider {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(3) {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child > p:first-child {
+        margin-top: 0 !important;
+        margin-bottom: 20px !important;
+    }
+}
+
+/* Enhanced Landscape for Small Devices */
+@media (max-height: 400px) and (orientation: landscape) {
+
+    .pdf-section,
+    .pdf-cover,
+    .pdf-insights,
+    .pdf-closing {
+        padding: 24px 16px !important;
+    }
+
+    .productRow > div {
+        height: 90px;
+    }
+
+    #showroom-slider {
+        min-height: 160px !important;
+    }
+
+    /* Compact headings in landscape */
+    .pdf-cover-text h2 {
+        font-size: 1.5rem !important;
+    }
+
+    .pdf-section h3 {
+        font-size: 1.5rem !important;
+    }
+
+    .product-title-link {
+        font-size: 1.25rem !important;
+    }
+
+    /* Reduce all vertical spacing */
+    .product-item {
+        margin-bottom: 24px !important;
+    }
+
+    #tipsContent > div {
+        margin-bottom: 16px !important;
+    }
+
+    /* Showroom Strategy - Reduce spacing for small landscape */
+    .pdf-section.alternate > div:nth-child(2) {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) * {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .container {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideWrapper {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideOuter {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSPager.lSGallery {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) #showroom-slider {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(3) {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child > p:first-child {
+        margin-top: 0 !important;
+        margin-bottom: 16px !important;
     }
 }
 
 /* Tablet Adjustments (768px - 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
-    
+
+    /* Showroom Strategy - Reduce spacing for tablets */
+    .pdf-section.alternate > div:nth-child(2) {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) * {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .container {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideWrapper {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSSlideOuter {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) .lSPager.lSGallery {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(2) #showroom-slider {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .pdf-section.alternate > div:nth-child(3) {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .pdf-section.alternate > div:last-child > p:first-child {
+        margin-top: 0 !important;
+        margin-bottom: 40px !important;
+    }
+
     .pdf-section,
     .pdf-cover,
     .pdf-insights,
